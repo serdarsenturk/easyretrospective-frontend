@@ -6,7 +6,27 @@ import BoardName from '../components/board_name'
 export default class Board extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {board: this.props.board}
+        this.state = {board: this.props.board, column_name: ''}
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.board.member_id}/boards/${this.props.board.code}/columns` , {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "name": this.state.column_name
+            })
+          });
+    }
+
+    handleChange(event) {
+        event.preventDefault();
+        
+        this.setState({column_name: event.target.value});
     }
 
     render(){
@@ -17,7 +37,7 @@ export default class Board extends React.Component{
             <Form onSubmit={this.handleSubmit}>
                 <Form>
                     <Col sm={13}>
-                    <Form.Control type="text" placeholder="Enter column name" onChange={this.handleChange}/>
+                    <Form.Control type="text" placeholder="Enter column name" onChange={(event) => this.handleChange(event)}/>
                     </Col>
                 </Form>
                 <Form.Group as={Row}>

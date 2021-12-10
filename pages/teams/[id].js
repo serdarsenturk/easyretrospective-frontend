@@ -6,42 +6,14 @@ import {Col} from "react-bootstrap";
 function Teams({boards}) {
   const router = useRouter()
 
-  const handleClick = () => {
-    const { id } = router.query
-
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${id}/boards` , {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      }
-    })
-    .then((response) => response.json())
-    .then(board => router.push(`/boards/${board.code}`));
-    console.log("Redirecting to board");
-  }
-
   const clickMe = (board) => {
     router.push(`/boards/${board.code}`)
-  }
-
-  const handleDelete = (board) => {
-    console.log(board.code)
-    const { id } = router.query
-
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${id}/boards/${board.code}` , {
-      method: 'DELETE',
-      headers: {
-          'Content-Type': 'application/json',
-      }
-    })
-
-    console.log("Board deleted");
   }
 
     return (
       <div>
 
-      <Button style={ { margin: '3rem'}} variant="primary" onClick={() => handleClick()}>Create Team</Button>
+      <Button style={ { margin: '3rem'}} variant="primary">Create Team</Button>
 
       {boards.map((board) => (
         <div key={board.id} onClick={() => clickMe(board)}>
@@ -53,7 +25,6 @@ function Teams({boards}) {
             </Card.Text>
             <Col>
               <Button variant="primary">URL</Button>
-              <Button style={ { margin: '1rem'}} variant="primary" onClick={() => handleDelete(board)}>DELETE</Button>
             </Col>
           </Card.Body>
         </Card>

@@ -30,7 +30,7 @@ export default class Cards extends Component{
                 <Card.Body>
                     <Card style={{ width: '15rem',float:'center' }} key={this.props.card.id}>
                     <Card.Body>
-                        <Card.Title>Card Id: {this.state.card.column_id}</Card.Title>
+                        <Card.Title>Card Id: {this.state.card.id}</Card.Title>
                         <Card.Text>
                             <CardContent card ={this.state.card} card_content={this.state.card.content} column_id={this.props.column_id} member_id={this.props.member_id} board_code={this.props.board_code}/>
                         </Card.Text>

@@ -21,7 +21,7 @@ export default class Board extends React.Component{
             body: JSON.stringify({
                 "name": this.state.column_name
             })
-          });
+          })
     }
 
     handleChange(event) {

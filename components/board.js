@@ -10,6 +10,39 @@ export default class Board extends React.Component{
         this.state = {board: this.props.board, column_name: ''}
     }
 
+    componentDidMount() {
+        Pusher.logToConsole=process.env.NEXT_PUBLIC_PUSHER_DEBUGGING
+        
+        this.pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+            cluster: 'eu',
+            encrypted: true
+          });
+
+          this.channel = this.pusher.subscribe(`board-${this.state.board.code}`)
+
+          this.channel.bind('column-created', new_column => {
+            var newColumnList = this.state.board.columns;
+            newColumnList.push(new_column);
+            const newBoard = {id: this.state.board.id, columns: newColumnList, code: this.state.board.code, member_id: 1};
+            this.setState({board: newBoard});
+    })
+
+        this.channel.bind('column-updated', updated_column => {
+            var newColumnList = this.state.board.columns;
+            const columnIndex = newColumnList.findIndex(column => column.id === updated_column.id);
+            newColumnList[columnIndex].name = updated_column.name;
+            const newBoard = {id: this.state.board.id, columns: newColumnList, code: this.state.board.code, member_id: 1};
+            this.setState({board: newBoard});
+        })
+
+        this.channel.bind('column-deleted', deleted_column => {
+            var columnList = this.state.board.columns;
+            var newColumnList = columnList.filter(column => column.id != deleted_column.id);
+            const newBoard = {id: this.state.board.id, columns: newColumnList, code: this.state.board.code, member_id: 1};
+            this.setState({board: newBoard});
+        })
+    }
+
     handleSubmit = (event) => {
         event.preventDefault()
 

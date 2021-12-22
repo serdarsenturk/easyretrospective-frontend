@@ -54,7 +54,7 @@ class Column extends Component{
             body: JSON.stringify({
                 "content": this.state.content
             })
-          });
+          })
     }
 
     handleChangeContent(event) {
@@ -103,7 +103,7 @@ class Column extends Component{
                     <Button type="submit">Add</Button>
                     </Col>
                     </Form.Group>
-                </Form>   
+                </Form>
                 {this.state.column.cards.map((card) => (
                     <Cards
                     key={card.id} 

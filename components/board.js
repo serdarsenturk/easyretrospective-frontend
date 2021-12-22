@@ -47,18 +47,15 @@ export default class Board extends React.Component{
                 </Col>
                 </Form.Group>
             </Form>
-
             <Row>
-            {
-                this.props.board.columns.map(column => (
+            {this.state.board.columns.map(column => (
                     <Column 
                         key={column.id} 
                         column={column}
-                        member_id= {this.props.board.member_id}
-                        board_code= {this.props.board.code}
+                        member_id= {this.state.board.member_id}
+                        board_code= {this.state.board.code}
                     />
-                )) 
-            }
+            ))}
             </Row>
             </>
         );

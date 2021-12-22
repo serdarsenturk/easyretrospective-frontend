@@ -2,6 +2,7 @@ import React from 'react'
 import Column from '../components/column'
 import {Form, Button, Col, Row} from 'react-bootstrap'
 import BoardName from '../components/board_name'
+import Pusher from 'pusher-js'
 
 export default class Board extends React.Component{
     constructor(props) {

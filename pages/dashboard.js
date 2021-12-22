@@ -13,6 +13,32 @@ function Dashboard({ boards, member_teams }) {
   const [ publicBoardList, setPublicBoardList ] = useState(boards.filter(board => board.team_id === null))
   var teams = member_teams[0]["teams_members"]
 
+	useEffect(() => {
+    Pusher.logToConsole=process.env.NEXT_PUBLIC_PUSHER_DEBUGGING
+
+		const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+			cluster: 'eu',
+      encrypted: true
+		})
+
+		const channel = pusher.subscribe('member-1');
+
+		channel.bind('board-deleted',function(deleted_board) {
+        setPublicBoardList(publicBoardList.filter(board => board.code != deleted_board.code));
+		})
+		
+		channel.bind('board-updated',function(updated_board) {
+      const boardList = publicBoardList;
+      const boardIndex = publicBoardList.findIndex(board => board.code === updated_board.code);
+      boardList[boardIndex].name = updated_board.name;
+
+      setPublicBoardList(boardList.filter(board => board.team_id === null));
+  })
+
+		return (() => {
+			pusher.unsubscribe('member-1')
+		})
+	}, []);
 
   const clickMe = (board) => {
     router.push(`/boards/${board.code}`)

@@ -1,0 +1,30 @@
+import React from 'react'
+import {Button} from "react-bootstrap";
+
+export default class CreateBoard extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {team_id: this.props.team_id}
+    }
+
+    handleClick = (team_id) => {
+
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/1/boards` , {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body : JSON.stringify({
+            "team_id": team_id
+          })
+        })
+    }
+
+    render(){
+        return (    
+            <>
+                <Button style={ { margin: '3rem'}} variant="primary" onClick={() => this.handleClick(this.state.team_id)}>CREATE BOARD</Button>
+            </>
+        );
+    }
+}

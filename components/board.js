@@ -30,6 +30,13 @@ export default class Board extends React.Component{
         this.setState({column_name: event.target.value});
     }
 
+    componentWillUnmount() {
+        this.channel.unbind();
+
+        this.pusher.unsubscribe(this.channel);
+    }
+
+
     render(){
         return (    
             <>

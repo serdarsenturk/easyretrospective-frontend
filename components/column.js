@@ -10,6 +10,39 @@ class Column extends Component{
         this.state = { column: this.props.column, content: ''};
     }
 
+    componentDidMount() {
+        Pusher.logToConsole=process.env.NEXT_PUBLIC_PUSHER_DEBUGGING
+        
+        this.pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+            cluster: 'eu',
+            encrypted: true
+          });
+
+          this.channel = this.pusher.subscribe(`board-${this.props.board_code}-${this.state.column.id}`)
+
+          this.channel.bind('card-created', new_card => {
+            var newCardList = this.state.column.cards;
+            newCardList.push(new_card);
+            const newColumn = {id: this.state.column.id, cards: newCardList};
+            this.setState({column: newColumn});
+    })
+
+        this.channel.bind('card-updated', updated_card => {
+            var newCardList = this.state.column.cards;
+            const cardIndex = newCardList.findIndex(card => card.id != updated_card.id);
+            newCardList[cardIndex].content = updated_card.content;
+            const newColumn = {id: this.state.column.id, cards: newCardList};
+            this.setState({column: newColumn});
+        })
+
+        this.channel.bind('card-deleted', deleted_card => {
+            var cardList = this.state.column.cards;
+            var newCardList = cardList.filter(card => card.id != deleted_card.id);
+            const newColumn = {id: this.state.column.id, cards: newCardList};
+            this.setState({column: newColumn});
+        })
+    }
+
     handleSubmitCard = (event) => {
         event.preventDefault()
 

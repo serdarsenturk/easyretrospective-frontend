@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card, Button, Col, Form, Row} from "react-bootstrap";
 import Cards from '../components/card'
 import ColumnName from '../components/column_name'
+import Pusher from 'pusher-js'
 
 class Column extends Component{
     constructor(props) {
@@ -41,6 +42,12 @@ class Column extends Component{
           })
       
           console.log("Column deleted");
+    }
+
+    componentWillUnmount() {
+        this.channel.unbind();
+
+        this.pusher.unsubscribe(this.channel);
     }
 
     render(){

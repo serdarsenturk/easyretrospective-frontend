@@ -7,9 +7,8 @@ export default class CreateBoard extends React.Component{
         this.state = {member_id: this.props.member_id}
     }
 
-    handleClick = () => {
-
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/1/boards` , {
+    handleClick = (member_id) => {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards` , {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -20,7 +19,7 @@ export default class CreateBoard extends React.Component{
     render(){
         return (    
             <>
-                <Button style={ { margin: '3rem'}} variant="primary" onClick={() => this.handleClick(this.state.team_id)}>CREATE BOARD</Button>
+                <Button style={ { margin: '3rem'}} variant="primary" onClick={() => this.handleClick(this.state.member_id)}>CREATE BOARD</Button>
             </>
         );
     }

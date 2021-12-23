@@ -4,7 +4,6 @@ import {Button} from "react-bootstrap";
 export default class CreateBoard extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {team_id: this.props.team_id}
     }
 
     handleClick = (team_id) => {

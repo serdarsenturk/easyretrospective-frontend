@@ -5,11 +5,11 @@ import CreateBoard from "./create_board";
 export default class BoardTab extends Component{
     constructor(props) {
         super(props);
-        this.state = {team: this.props.team, team_boards: []};
+        this.state = {team: this.props.team, team_boards: [], member_id: this.props.member_id };
     }
   
     handleDelete = (board) => {
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/1/boards/${board.code}` , {
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.state.member_id}/boards/${board.code}` , {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

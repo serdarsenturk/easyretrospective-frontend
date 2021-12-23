@@ -11,6 +11,7 @@ import cookies from 'next-cookies'
 function Dashboard({ boards, member_teams, cookies}) {
   const router = useRouter()
   const member_id = cookies.member_id
+  const team_id = cookies.team_id
 
   const [ publicBoardList, setPublicBoardList ] = useState(boards.filter(board => board.team_id === null))
   var teams = member_teams[0]["teams_members"]
@@ -65,7 +66,7 @@ function Dashboard({ boards, member_teams, cookies}) {
                 <Nav variant="pills" className="flex-column">
                     <Nav.Item>
                     <Nav.Link eventKey="first">Public</Nav.Link>
-                    <CreateBoard />
+                    <CreateBoard member_id={member_id}/>
                     </Nav.Item>
                 </Nav>
                 </Col>
@@ -99,7 +100,7 @@ function Dashboard({ boards, member_teams, cookies}) {
             </Tab.Container>
 					<Row>
             {teams.map((team) =>(
-              <BoardTab team={team}/>
+              <BoardTab team={team} member_id={member_id}/>
             ))}
 					</Row>
       </>

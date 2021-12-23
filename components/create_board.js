@@ -6,16 +6,13 @@ export default class CreateBoard extends React.Component{
         super(props);
     }
 
-    handleClick = (team_id) => {
+    handleClick = () => {
 
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/1/boards` , {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
-          },
-          body : JSON.stringify({
-            "team_id": team_id
-          })
+          }
         })
     }
 

@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 import {Col, Row, Tab, Nav} from "react-bootstrap";
 import CreateBoard from '../components/create_board';
 import Pusher from 'pusher-js'
+import cookies from 'next-cookies'
 
-function Dashboard({ boards, member_teams }) {
+function Dashboard({ boards, member_teams, cookies}) {
   const router = useRouter()
+  const member_id = cookies.member_id
 
   const [ publicBoardList, setPublicBoardList ] = useState(boards.filter(board => board.team_id === null))
   var teams = member_teams[0]["teams_members"]
@@ -21,7 +23,7 @@ function Dashboard({ boards, member_teams }) {
       encrypted: true
 		})
 
-		const channel = pusher.subscribe('member-1');
+		const channel = pusher.subscribe(`member-${member_id}`);
 
 		channel.bind('board-deleted',function(deleted_board) {
         setPublicBoardList(publicBoardList.filter(board => board.code != deleted_board.code));
@@ -36,7 +38,7 @@ function Dashboard({ boards, member_teams }) {
   })
 
 		return (() => {
-			pusher.unsubscribe('member-1')
+			pusher.unsubscribe(`member-${member_id}`)
 		})
 	}, []);
 
@@ -44,8 +46,8 @@ function Dashboard({ boards, member_teams }) {
     router.push(`/boards/${board.code}`)
   }
 
-  const handleDelete = (board) => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/1/boards/${board.code}` , {
+  const handleDelete = (board, member_id) => {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards/${board.code}` , {
       method: 'DELETE',
       headers: {
           'Content-Type': 'application/json',
@@ -63,7 +65,7 @@ function Dashboard({ boards, member_teams }) {
                 <Nav variant="pills" className="flex-column">
                     <Nav.Item>
                     <Nav.Link eventKey="first">Public</Nav.Link>
-                    <CreateBoard team_id=''/>
+                    <CreateBoard />
                     </Nav.Item>
                 </Nav>
                 </Col>
@@ -83,7 +85,7 @@ function Dashboard({ boards, member_teams }) {
                           </Card.Text>
                           <Col>
                             <Button variant="primary">URL</Button>
-                            <Button style={ { margin: '1rem'}} variant="primary" onClick={() => handleDelete(board)}>DELETE</Button>
+                            <Button style={ { margin: '1rem'}} variant="primary" onClick={() => handleDelete(board, member_id)}>DELETE</Button>
                             <Button style={ { margin: '1rem'}} variant="primary" onClick={() => clickMe(board)}>GOTO</Button>
                           </Col>
                         </Card.Body>
@@ -104,14 +106,14 @@ function Dashboard({ boards, member_teams }) {
   )
 }
 
-Dashboard.getInitialProps = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/1/boards`)
+Dashboard.getInitialProps = async (ctx) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${cookies(ctx).member_id}/boards`)
   const boards = await res.json()
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/1/teams`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${cookies(ctx).member_id}/teams`)
   const member_teams = await response.json()
 
-  return { boards: boards , member_teams: member_teams}
+  return { boards: boards , member_teams: member_teams , cookies: cookies(ctx)}
 }
 
 export default Dashboard

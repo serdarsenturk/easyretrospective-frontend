@@ -49,7 +49,7 @@ export default class BoardTab extends Component{
                 <Tab.Content>
                     
                 <Tab.Pane eventKey="second">
-                <CreateBoard team_id={this.state.team.id}/>
+                <CreateBoard member_id={this.state.member_id}/>
                     {this.state.team_boards.map((board) => (
                       <Col>
                       <Card style={{ width: '18rem',float:'right' }}>

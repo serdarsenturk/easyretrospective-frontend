@@ -44,7 +44,6 @@ export default class BoardName extends React.Component{
               <>
                 <title>{this.state.board_name}</title>
                 
-                <Row className="board-header p-3 pb-md-4 mx-auto text-center">
                   <Form onSubmit={this.handleSubmit}>
                     <input
                       type="text"
@@ -54,7 +53,6 @@ export default class BoardName extends React.Component{
                       className="board-title-textbox"
                     />
                   </Form>
-                </Row>
               </>
             );
           }

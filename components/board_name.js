@@ -51,7 +51,7 @@ export default class BoardName extends React.Component{
                       placeholder="Update board name"
                       value={this.state.board_name}
                       onChange={this.handleChange}
-                      className="board-title-textbox form-control "
+                      className="board-title-textbox"
                     />
                   </Form>
                 </Row>

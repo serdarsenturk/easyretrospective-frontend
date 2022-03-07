@@ -10,12 +10,28 @@ export default class CreateBoard extends React.Component{
     }
 
     handleClick = (member_id) => {
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards` , {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          }
-        })
+        if (this.state.team_id){
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards` , {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({team_id: this.state.team_id})
+              })
+              .then((response) => response.json())
+              .then(new_board => this.router.push(`/boards/${new_board.code}`))
+        }
+        else {
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards` , {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({team_id: null})
+              })
+              .then((response) => response.json())
+              .then(new_board => this.router.push(`/boards/${new_board.code}`))
+        }
     }
 
     render(){

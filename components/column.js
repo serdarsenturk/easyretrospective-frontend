@@ -19,7 +19,7 @@ class Column extends Component{
           });
 
           this.channel = this.pusher.subscribe(`board-${this.props.board_code}-${this.state.column.id}`)
-
+          
           this.channel.bind('card-created', new_card => {
             var newCardList = this.state.column.cards;
             newCardList.push(new_card);
@@ -59,10 +59,9 @@ class Column extends Component{
 
     handleChangeContent(event) {
         event.preventDefault();
-        
+
         this.setState({content: event.target.value});
     }
-
 
     deleteColumn = (event, column) => {
         event.preventDefault();

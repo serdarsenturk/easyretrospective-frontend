@@ -34,11 +34,16 @@ function Dashboard({ boards, cookies}) {
 	  })
 		
 		channel.bind('board-updated', function(updated_board) {
-      const boardList = publicBoardList;
-      const boardIndex = publicBoardList.findIndex(board => board.code === updated_board.code);
+      const boardList = boards;
+      const boardIndex = boardList.findIndex(board => board.code === updated_board.code);
       boardList[boardIndex].name = updated_board.name;
 
-      setPublicBoardList(boardList.filter(board => board.team_id === null));
+      if(boardList[boardIndex].team_id){
+        setMemberTeamBoards(boardList.filter(board => board.team_id == boardList[boardIndex].team_id))
+      }
+      else{
+        setPublicBoardList(boardList.filter(board => board.team_id === null));
+      }
     })
 
 		return (() => {

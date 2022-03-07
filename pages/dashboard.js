@@ -41,17 +41,12 @@ function Dashboard({ boards, cookies}) {
       boardList[boardIndex].name = updated_board.name;
 
       setPublicBoardList(boardList.filter(board => board.team_id === null));
-  })
     })
 
 		return (() => {
 			pusher.unsubscribe(`member-${member_id}`)
 		})
 	}, []);
-
-  const clickMe = (board) => {
-    router.push(`/boards/${board.code}`)
-  }
 
   const handleDelete = (board, member_id) => {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards/${board.code}` , {

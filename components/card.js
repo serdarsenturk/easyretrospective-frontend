@@ -24,8 +24,28 @@ export default class Cards extends Component{
     render(){
         return (
         <>
+            <div className="item-container">
+                <Card key={this.props.card.id}>
+                    
                     <Card.Body>
+                        <div className="col">
+                            <Card.Title className="text-lowercase text-muted mb-10">
+                                Card Id: {this.state.card.id}
+                            </Card.Title>
+                            <Card.Text>
+                                <CardContent card={this.state.card} card_content={this.state.card.content} column_id={this.props.column_id} member_id={this.props.member_id} board_code={this.props.board_code}/>
+                            </Card.Text>
+                        </div>
+
+                    <Button variant="danger" onClick={(event) => this.deleteCard(event, this.state.card)}>
+                        <FontAwesomeIcon icon={faTrash} aria-hidden="true"/>
+                    </Button>
+                    
                     </Card.Body>
+                </Card>
+
+            </div>
+
         </>
         )
     }

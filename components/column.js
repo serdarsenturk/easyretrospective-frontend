@@ -29,7 +29,7 @@ class Column extends Component{
 
         this.channel.bind('card-updated', updated_card => {
             var newCardList = this.state.column.cards;
-            const cardIndex = newCardList.findIndex(card => card.id != updated_card.id);
+            const cardIndex = newCardList.findIndex(card => card.id == updated_card.id);
             newCardList[cardIndex].content = updated_card.content;
             const newColumn = {id: this.state.column.id, cards: newCardList};
             this.setState({column: newColumn});

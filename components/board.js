@@ -18,7 +18,7 @@ export default class Board extends React.Component{
         this.pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
             cluster: 'eu',
             encrypted: true
-          });
+        });
 
           this.channel_column = this.pusher.subscribe(`board-${this.state.board.code}`)
           this.channel_board = this.pusher.subscribe(`member-${this.state.board.member_id}`)

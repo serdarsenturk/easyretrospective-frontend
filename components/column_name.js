@@ -39,21 +39,21 @@ export default class ColumnName extends React.Component{
             this.setState({ column_name: event.target.value});
         }
     
-        render() {
-            return (
-              <>        
-                <Row className="board-header p-3 pb-md-4 mx-auto text-center">
-                  <Form onSubmit={this.handleSubmit}>
-                    <input
-                      type="text"
-                      placeholder={this.props.column_name}
-                      value={this.state.column_name}
-                      onChange={this.handleChange}
-                      className="board-title-textbox form-control "
-                    />
-                  </Form>
-                </Row>
-              </>
-            );
-          }
+    render() {
+        return (
+            <>
+            
+            <Form onSubmit={this.handleSubmit}>
+                <input
+                type="text"
+                placeholder={this.props.column_name}
+                value={this.state.column_name}
+                onChange={this.handleChange}
+                className="board-title-textbox"
+                />
+            </Form>
+
+            </>
+        );
+        }
 }

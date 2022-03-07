@@ -74,7 +74,7 @@ export default class Board extends React.Component{
     render(){
         return (    
         <>
-        <Row>
+        <Row className="d-inline-flex">
 
             <Row>
                 <BoardName board={this.state.board}/>

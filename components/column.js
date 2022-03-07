@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, Col, Form, Row} from "react-bootstrap";
+import { Card, Button, Form } from "react-bootstrap";
 import Cards from '../components/card'
 import ColumnName from '../components/column_name'
 import Pusher from 'pusher-js'

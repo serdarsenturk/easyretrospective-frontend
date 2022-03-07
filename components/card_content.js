@@ -49,7 +49,7 @@ export default class CardContent extends React.Component{
                   placeholder={this.props.card_content}
                   value={this.state.content}
                   onChange={this.handleChange}
-                  className="board-title-textbox form-control "
+                  className="board-card-text-textbox"
                 />
               </Form>
             </Row>

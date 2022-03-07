@@ -168,9 +168,6 @@ export async function getServerSideProps(ctx) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${cookies(ctx).member_id}/boards`)
   const boards = await res.json()
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${cookies(ctx).member_id}/teams`)
-  const member_teams = await response.json()
-
   return { boards: boards , member_teams: member_teams , cookies: cookies(ctx)}
 }
 

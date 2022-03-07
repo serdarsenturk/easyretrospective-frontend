@@ -11,9 +11,9 @@ import { useRouter } from "next/router";
 function Dashboard({ boards, cookies}) {
   const member_id = cookies.member_id
   const team_id = cookies.team_id
-
-  const [ publicBoardList, setPublicBoardList ] = useState(boards.filter(board => board.team_id === null))
-  var teams = member_teams[0]["teams_members"]
+  const [publicBoardList, setPublicBoardList] = useState(boards.filter(board => board.team_id == null && board.team_id != team_id))
+  const [member_team_boards, setMemberTeamBoards] = useState(boards.filter(board => board.team_id == team_id))
+  const router = useRouter();
 
 	useEffect(() => {
     Pusher.logToConsole=process.env.NEXT_PUBLIC_PUSHER_DEBUGGING

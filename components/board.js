@@ -25,7 +25,7 @@ export default class Board extends React.Component{
           this.channel.bind('column-created', new_column => {
             var newColumnList = this.state.board.columns;
             newColumnList.push(new_column);
-            const newBoard = {id: this.state.board.id, columns: newColumnList, code: this.state.board.code, member_id: 1};
+            const newBoard = {id: this.state.board.id, columns: newColumnList, code: this.state.board.code, member_id: this.props.board.member_id};
             this.setState({board: newBoard});
     })
 
@@ -33,14 +33,14 @@ export default class Board extends React.Component{
             var newColumnList = this.state.board.columns;
             const columnIndex = newColumnList.findIndex(column => column.id === updated_column.id);
             newColumnList[columnIndex].name = updated_column.name;
-            const newBoard = {id: this.state.board.id, columns: newColumnList, code: this.state.board.code, member_id: 1};
+            const newBoard = {id: this.state.board.id, columns: newColumnList, code: this.state.board.code, member_id: this.props.board.member_id};
             this.setState({board: newBoard});
         })
 
         this.channel.bind('column-deleted', deleted_column => {
             var columnList = this.state.board.columns;
             var newColumnList = columnList.filter(column => column.id != deleted_column.id);
-            const newBoard = {id: this.state.board.id, columns: newColumnList, code: this.state.board.code, member_id: 1};
+            const newBoard = {id: this.state.board.id, columns: newColumnList, code: this.state.board.code, member_id: this.props.board.member_id};
             this.setState({board: newBoard});
         })
     }

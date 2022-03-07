@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Card, Button, Col, Form, Row} from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import CardContent from "../components/card_content"
 
 export default class Cards extends Component{

@@ -8,7 +8,7 @@ import { faTrash, faTachometer, faEdit } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from "next/router";
 
-function Dashboard({ boards, member_teams, cookies}) {
+function Dashboard({ boards, cookies}) {
   const member_id = cookies.member_id
   const team_id = cookies.team_id
 

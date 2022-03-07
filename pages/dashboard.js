@@ -164,7 +164,7 @@ function Dashboard({ boards, cookies}) {
   )
 }
 
-Dashboard.getInitialProps = async (ctx) => {
+export async function getServerSideProps(ctx) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${cookies(ctx).member_id}/boards`)
   const boards = await res.json()
 

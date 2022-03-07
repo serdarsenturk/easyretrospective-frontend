@@ -1,12 +1,12 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import BoardTab from '../components/board_tab'
-import { useRouter} from 'next/router'
-import { useEffect, useState } from "react";
-import {Col, Row, Tab, Nav} from "react-bootstrap";
-import CreateBoard from '../components/create_board';
 import Pusher from 'pusher-js'
 import cookies from 'next-cookies'
+import Button from 'react-bootstrap/Button';
+import CreateBoard from '../components/create_board';
+import { Row, Tab, SSRProvider, TabContainer, Col, Nav, Sonnet } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { faTrash, faTachometer, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRouter } from "next/router";
 
 function Dashboard({ boards, member_teams, cookies}) {
   const router = useRouter()

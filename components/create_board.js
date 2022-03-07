@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from "react-bootstrap";
+import { withRouter } from 'next/router'
 
 export default class CreateBoard extends React.Component{
     constructor(props) {

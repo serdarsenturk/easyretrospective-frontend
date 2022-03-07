@@ -31,7 +31,7 @@ export default class Board extends React.Component{
 
         this.channel.bind('column-updated', updated_column => {
             var newColumnList = this.state.board.columns;
-            const columnIndex = newColumnList.findIndex(column => column.id === updated_column.id);
+            const columnIndex = newColumnList.findIndex(column => column.id == updated_column.id);
             newColumnList[columnIndex].name = updated_column.name;
             const newBoard = {id: this.state.board.id, columns: newColumnList, code: this.state.board.code, member_id: this.props.board.member_id};
             this.setState({board: newBoard});

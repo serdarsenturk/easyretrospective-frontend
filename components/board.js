@@ -20,6 +20,8 @@ export default class Board extends React.Component{
             encrypted: true
           });
 
+          this.channel_column = this.pusher.subscribe(`board-${this.state.board.code}`)
+          this.channel_board = this.pusher.subscribe(`member-${this.state.board.member_id}`)
 
           this.channel.bind('column-created', new_column => {
             var newColumnList = this.state.board.columns;

@@ -34,10 +34,10 @@ export default class ColumnName extends React.Component{
         })
         }
     
-        handleChange(event) {
-            event.preventDefault();
-            this.setState({ column_name: event.target.value});
-        }
+    handleChange(event) {
+        event.preventDefault();
+        this.setState({ column_name: event.target.value});
+    }
     
     render() {
         return (

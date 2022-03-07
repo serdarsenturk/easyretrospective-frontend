@@ -5,7 +5,7 @@ import { withRouter } from 'next/router'
 export default class CreateBoard extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {member_id: this.props.member_id}
+        this.state = {member_id: this.props.member_id, team_id: this.props.team_id}
     }
 
     handleClick = (member_id) => {

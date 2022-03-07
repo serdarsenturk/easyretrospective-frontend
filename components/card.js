@@ -29,7 +29,7 @@ export default class Cards extends Component{
                     
                     <Card.Body>
                         <div className="col">
-                            <Card.Title className="text-lowercase text-muted mb-10">
+                            <Card.Title className="text-uppercase text-muted mb-10">
                                 Card Id: {this.state.card.id}
                             </Card.Title>
                             <Card.Text>

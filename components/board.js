@@ -48,7 +48,7 @@ export default class Board extends React.Component{
     handleSubmit = (event) => {
         event.preventDefault()
 
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/1/boards/${this.props.board.code}/columns` , {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.board.member_id}/boards/${this.props.board.code}/columns` , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

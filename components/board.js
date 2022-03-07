@@ -72,8 +72,12 @@ export default class Board extends React.Component{
     }
 
     componentWillUnmount() {
+        this.channel_column.unbind();
+        this.channel_board.unbind();
 
-        this.pusher.unsubscribe(this.channel);
+        this.pusher.unsubscribe(this.channel_column);
+        this.pusher.unsubscribe(this.channel_board);
+
     }
 
     render(){

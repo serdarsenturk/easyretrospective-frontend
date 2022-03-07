@@ -31,10 +31,8 @@ function Dashboard({ boards, cookies}) {
 
 		channel.bind('board-deleted', function(deleted_board) {
         setPublicBoardList(publicBoardList.filter(board => board.code != deleted_board.code));
-		})
 	  })
 		
-		channel.bind('board-updated',function(updated_board) {
 		channel.bind('board-updated', function(updated_board) {
       const boardList = publicBoardList;
       const boardIndex = publicBoardList.findIndex(board => board.code === updated_board.code);

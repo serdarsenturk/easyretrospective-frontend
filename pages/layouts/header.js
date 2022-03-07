@@ -1,19 +1,26 @@
-import { Row, Col, Nav } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faColumns, faPlus, faHome, faTachometer } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
     return (
       <>
-        <Col className="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-          <a
-            href="/"
-            className="d-flex align-items-center text-dark text-decoration-none"
-          >
-            <Row className="fs-4">EasyRetrospective</Row>
-          </a>
-  
-          <Nav className="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-          </Nav>
-        </Col>
+        <header className="masthead">
+            <div className="boards-menu">
+
+                <nav>
+                  <a className="boards-btn btn" href="/"><FontAwesomeIcon icon={faHome} aria-hidden="true"/> Home</a>
+                </nav>
+
+                <nav>
+                  <a className="boards-btn btn" href="/dashboard"><FontAwesomeIcon icon={faTachometer} aria-hidden="true"/> Dashboard</a>
+                </nav>
+            </div>
+
+            <div className="logo">
+                <i><FontAwesomeIcon icon={faColumns}/>EasyRetrospective</i>
+            </div>
+            
+        </header>
       </>
     );
   }

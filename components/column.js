@@ -7,7 +7,7 @@ import Pusher from 'pusher-js'
 class Column extends Component{
     constructor(props) {
         super(props);
-        this.state = { column: this.props.column, content: ''};
+        this.state = {column: this.props.column, content: ''};
     }
 
     componentDidMount() {

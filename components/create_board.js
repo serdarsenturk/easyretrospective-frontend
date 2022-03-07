@@ -19,8 +19,10 @@ export default class CreateBoard extends React.Component{
     render(){
         return (    
             <>
-                <Button style={ { margin: '3rem'}} variant="primary" onClick={() => this.handleClick(this.state.member_id)}>CREATE BOARD</Button>
+                <Button variant="secondary" onClick={() => this.handleClick(this.state.member_id)}>CREATE BOARD</Button>
             </>
         );
     }
 }
+
+export default withRouter(CreateBoard)

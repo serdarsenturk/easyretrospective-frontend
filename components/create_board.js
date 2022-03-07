@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export default class CreateBoard extends React.Component{
     constructor(props) {

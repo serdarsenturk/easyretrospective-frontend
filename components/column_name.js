@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Row, Col, Form} from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 export default class ColumnName extends React.Component{
     constructor(props) {

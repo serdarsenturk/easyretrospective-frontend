@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import Cards from '../components/card'
 import ColumnName from '../components/column_name'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Pusher from 'pusher-js'
 
 class Column extends Component{

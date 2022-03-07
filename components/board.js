@@ -2,6 +2,8 @@ import React from 'react'
 import Column from '../components/column'
 import { Form, Button, Row } from 'react-bootstrap'
 import BoardName from '../components/board_name'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Pusher from 'pusher-js'
 
 export default class Board extends React.Component{

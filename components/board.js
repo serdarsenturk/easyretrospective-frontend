@@ -71,35 +71,36 @@ export default class Board extends React.Component{
         this.pusher.unsubscribe(this.channel);
     }
 
-
     render(){
         return (    
-            <>
-            <BoardName board={this.state.board}/>
+        <>
+        <Row>
 
-            <Form onSubmit={this.handleSubmit}>
-                <Form>
-                    <Col sm={13}>
-                    <Form.Control type="text" placeholder="Enter column name" onChange={(event) => this.handleChange(event)}/>
-                    </Col>
-                </Form>
-                <Form.Group as={Row}>
-                <Col sm={{ span: 10, offset: 0}}>
-                <Button type="submit">Add</Button>
-                </Col>
-                </Form.Group>
-            </Form>
             <Row>
-            {this.state.board.columns.map(column => (
+                <BoardName board={this.state.board}/>
+            </Row>
+            
+            <Form className="d-inline-flex p-2 bd-highlight justify-content-left" onSubmit={this.handleSubmit}>
+                    <Form.Control className="w-25" type="text" placeholder="Enter column name" onChange={(event) => this.handleChange(event)}/>
+                        <Button className="btn" type="submit">
+                    <FontAwesomeIcon icon={faPlus} ></FontAwesomeIcon>
+                </Button>
+            </Form>
+
+            <div className="container">
+                {this.state.board.columns.map(column => (
                     <Column 
                         key={column.id} 
                         column={column}
                         member_id= {this.state.board.member_id}
                         board_code= {this.state.board.code}
                     />
-            ))}
-            </Row>
-            </>
+                ))}
+            </div>
+
+        </Row>
+
+        </>
         );
     }
 }

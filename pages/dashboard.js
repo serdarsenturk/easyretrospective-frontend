@@ -55,8 +55,10 @@ function Dashboard({ boards, cookies}) {
           'Content-Type': 'application/json',
       }
     })
+  }
 
-    console.log("Board deleted");
+  const handleClick = (board_code) => {
+    router.push(`/boards/${board_code}`)
   }
 
     return (

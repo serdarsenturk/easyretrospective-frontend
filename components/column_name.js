@@ -5,7 +5,6 @@ export default class ColumnName extends React.Component{
     constructor(props) {
         super(props);
         this.state = {column_name: ''};
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -32,7 +31,7 @@ export default class ColumnName extends React.Component{
                 "name": this.state.column_name
             })
         })
-        }
+    }
     
     handleChange(event) {
         event.preventDefault();

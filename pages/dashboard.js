@@ -25,17 +25,24 @@ function Dashboard({ boards, cookies}) {
 
 		const channel = pusher.subscribe(`member-${member_id}`);
 
-		channel.bind('board-deleted',function(deleted_board) {
+		channel.bind('board-created', function(created_board) {
+      publicBoardList.push(created_board)
+    })
+
+		channel.bind('board-deleted', function(deleted_board) {
         setPublicBoardList(publicBoardList.filter(board => board.code != deleted_board.code));
 		})
+	  })
 		
 		channel.bind('board-updated',function(updated_board) {
+		channel.bind('board-updated', function(updated_board) {
       const boardList = publicBoardList;
       const boardIndex = publicBoardList.findIndex(board => board.code === updated_board.code);
       boardList[boardIndex].name = updated_board.name;
 
       setPublicBoardList(boardList.filter(board => board.team_id === null));
   })
+    })
 
 		return (() => {
 			pusher.unsubscribe(`member-${member_id}`)

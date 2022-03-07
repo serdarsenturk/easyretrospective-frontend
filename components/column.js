@@ -85,38 +85,42 @@ class Column extends Component{
 
     render(){
         return (
-        <>   
-            <Col>
-            <Card style={{ width: '18rem',float:'right'}} className="mx-auto my-2">
-                <Card.Header>
-                    <ColumnName column ={this.state.column} column_name={this.state.column.name} member_id={this.props.member_id} board_code={this.props.board_code}/>
-                </Card.Header>
-                <Card.Body>     
-                <Form onSubmit={this.handleSubmitCard}>
-                    <Form>
-                        <Col sm={13}>
-                        <Form.Control type="text" placeholder="" onChange={(event) => this.handleChangeContent(event)}/>
-                        </Col>
+        <>
+        <div className='drop-area'>
+            <Card>
+
+                <Button className="btn" variant="danger" onClick={(event) => this.deleteColumn(event, this.state.column)}>
+                    <FontAwesomeIcon icon={faTrash} aria-hidden="true"></FontAwesomeIcon>
+                </Button>
+                
+                <Card.Body>
+                    <ColumnName column={this.state.column} column_name={this.state.column.name} member_id={this.props.member_id} board_code={this.props.board_code}/>                
+                
+                    {this.state.column.cards.map((card) => (
+                        <Cards
+                        key={card.id} 
+                        card={card}
+                        member_id = {this.props.member_id}
+                        board_code = {this.props.board_code}
+                        column_id = {this.state.column.id}
+                        />
+                    ))}
+                
+                    <Form onSubmit={this.handleSubmitCard}>
+                        <Form>
+                            <Form.Control type="text" placeholder="" onChange={(event) => this.handleChangeContent(event)}/>
+                        </Form>
+                        <Form.Group>
+                            <Button className="btn" variant="success" type="submit">
+                                <FontAwesomeIcon icon={faPlus} aria-hidden="true"/>
+                            </Button>
+                        </Form.Group>
                     </Form>
-                    <Form.Group as={Row}>
-                    <Col sm={{ span: 10, offset: 0}}>
-                    <Button type="submit">Add</Button>
-                    </Col>
-                    </Form.Group>
-                </Form>
-                {this.state.column.cards.map((card) => (
-                    <Cards
-                    key={card.id} 
-                    card={card}
-                    member_id = {this.props.member_id}
-                    board_code = {this.props.board_code}
-                    column_id = {this.state.column.id}
-                />
-                ))}
-                <Button variant="primary" onClick={(event) => this.deleteColumn(event, this.state.column)}>Delete Column</Button>
                 </Card.Body>
             </Card>
-            </Col>
+
+        </div>
+
         </>
         )
     }

@@ -72,9 +72,7 @@ class Column extends Component{
             headers: {
                 'Content-Type': 'application/json',
             }
-          })
-      
-          console.log("Column deleted");
+          })      
     }
 
     componentWillUnmount() {

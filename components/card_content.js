@@ -1,5 +1,5 @@
 import React from 'react'
-import {Row, Form} from 'react-bootstrap'
+import { Row, Form } from 'react-bootstrap'
 
 export default class CardContent extends React.Component{
     constructor(props) {

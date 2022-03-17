@@ -1,6 +1,6 @@
 import React from 'react'
 import Column from '../components/column'
-import { Form, Button, Row } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import BoardName from '../components/board_name'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -83,13 +83,9 @@ export default class Board extends React.Component{
     render(){
         return (    
         <>
-        <Row className="d-inline-flex">
-
-            <Row>
-                <BoardName board={this.state.board}/>
-            </Row>
+            <BoardName board={this.state.board}/>
             
-            <Form className="d-inline-flex p-2 bd-highlight justify-content-left" onSubmit={this.handleSubmit}>
+            <Form className="d-flex p-2 justify-content-center" onSubmit={this.handleSubmit}>
                     <Form.Control className="w-25" type="text" placeholder="Enter column name" onChange={(event) => this.handleChange(event)}/>
                         <Button className="btn" type="submit">
                     <FontAwesomeIcon icon={faPlus} ></FontAwesomeIcon>
@@ -106,8 +102,6 @@ export default class Board extends React.Component{
                     />
                 ))}
             </div>
-
-        </Row>
 
         </>
         );

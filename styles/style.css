@@ -143,11 +143,14 @@ body, html {
 }
 
 .container {
-    display: flex;
-    align-items: flex-start;
-    padding: 0 0.8rem 0.8rem;
-    overflow-x: auto;
-    height: calc(100vh - 8.6rem);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: flex-start;
+  border: 0 solid #ffffff;
+  border-radius: 4px;
+  overflow: auto;
+  padding: 3px;
  }
 
 .container::-webkit-scrollbar {

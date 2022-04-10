@@ -40,19 +40,15 @@ export default class ColumnName extends React.Component{
     
     render() {
         return (
-            <>
-            
-            <Form onSubmit={this.handleSubmit}>
+            <Form className="d-flex overflow-auto" onSubmit={this.handleSubmit}>
                 <input
+                className="input-form-control"
                 type="text"
                 placeholder={this.props.column_name}
                 value={this.state.column_name}
                 onChange={this.handleChange}
-                className="board-title-textbox"
                 />
             </Form>
-
-            </>
         );
         }
 }

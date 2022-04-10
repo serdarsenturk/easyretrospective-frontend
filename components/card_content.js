@@ -48,6 +48,7 @@ export default class CardContent extends React.Component{
                     placeholder={this.props.card_content}
                     value={this.state.content}
                     onChange={this.handleChange}
+                    style={{borderColor: "transparent", outlineColor: "transparent", boxShadow: "none", backgroundColor: "white"}}
                 />
             </Form>
             </Row>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Row, Form} from 'react-bootstrap'
+import {Row, Form, Col, FormControl} from 'react-bootstrap'
 
 export default class BoardName extends React.Component{
     constructor(props) {
@@ -43,7 +43,6 @@ export default class BoardName extends React.Component{
             return (
               <>
                 <title>{this.state.board_name}</title>
-                
                   <Form onSubmit={this.handleSubmit}>
                     <input
                       type="text"

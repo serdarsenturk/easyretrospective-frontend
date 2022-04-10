@@ -34,13 +34,13 @@ body {
 }
 
 .board-title-textbox {
-  border: 2px solid #FB6964;
+  border: 2px solid #e71fd7;
   display: block;
-  margin: 50px auto;
+  margin: 10px auto;
   width: 320px;
   height: 50px;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 12px;
   padding-left: 25px;
   background: rgba(255,255,255,0.8);
   outline: none;

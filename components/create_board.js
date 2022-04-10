@@ -16,7 +16,7 @@ class CreateBoard extends React.Component{
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({team_id: this.state.team_id})
+                body: JSON.stringify({team_id: team_id})
               })
               .then((response) => response.json())
               .then(new_board => this.router.push(`/boards/${new_board.code}`))

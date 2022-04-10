@@ -49,10 +49,10 @@ body {
 }
 
 .board-title-textbox:hover {
-    background: rgba(255,255,255,1);
-    border: 3px solid #e71fd7;
-    width: 320px;
-    height: 55px;
+  background: rgba(255,255,255,1);
+  border: 3px solid #e71fd7;
+  width: 320px;
+  height: 55px;
 }
 
 .board-title-textbox:focus {

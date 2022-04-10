@@ -67,6 +67,11 @@ section {
   overflow: hidden;
 }
 
+.input-form-control {
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #825aa4;
+  box-shadow: none;    
 }
 
 .input-form-control:focus {

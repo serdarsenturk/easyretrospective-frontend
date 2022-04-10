@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, Form } from "react-bootstrap";
+import { Card, Button, Form, Col, Row, Stack, Dropdown, DropdownButton } from "react-bootstrap";
 import Cards from '../components/card'
 import ColumnName from '../components/column_name'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

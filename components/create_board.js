@@ -9,8 +9,8 @@ class CreateBoard extends React.Component{
         this.router = props.router
     }
 
-    handleClick = (member_id) => {
-        if (this.state.team_id){
+    handleClick = (member_id, team_id) => {
+        if (team_id){
             fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards` , {
                 method: 'POST',
                 headers: {

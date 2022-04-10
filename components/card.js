@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, Button , Col, Row, DropdownButton, Dropdown} from "react-bootstrap";
 import CardContent from "../components/card_content"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default class Cards extends Component{
     constructor(props) {

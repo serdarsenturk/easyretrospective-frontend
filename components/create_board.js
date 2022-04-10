@@ -37,7 +37,7 @@ class CreateBoard extends React.Component{
     render(){
         return (    
             <>
-                <Button variant="secondary" onClick={() => this.handleClick(this.state.member_id)}>CREATE BOARD</Button>
+                <Button variant="secondary" className="my-2" onClick={() => this.handleClick(this.state.member_id, this.state.team_id)}>CREATE BOARD</Button>
             </>
         );
     }

@@ -1,11 +1,12 @@
-import Board from '../../components/board'
+import { Container } from 'react-bootstrap';
+import Board from '../../components/board';
 
 export default function BoardDetail({ board }) {
 
   return (
-    <div>
+    <Container>
       <Board board={board}/>
-    </div>
+    </Container>
   )
 }
 

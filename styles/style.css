@@ -62,6 +62,9 @@ body {
   height: 55px;
 }
 
+section {
+  padding: 40px 0;
+  overflow: hidden;
 }
 
 }

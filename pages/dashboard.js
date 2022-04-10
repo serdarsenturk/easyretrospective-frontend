@@ -1,59 +1,20 @@
+import { useRouter}  from 'next/router'
+import cookies from 'next-cookies';
+import { useState } from 'react';import CreateBoard from '../components/create_board';
+import BoardContainer from '../components/board_container';
 
-function Dashboard({ boards, cookies}) {
+import { Row, Container, Button } from "react-bootstrap";
+
+function Dashboard({boards, cookies}) {
+  const router = useRouter()
   const member_id = cookies.member_id
-  const team_id = cookies.team_id
-  const [publicBoardList, setPublicBoardList] = useState(boards.filter(board => board.team_id == null && board.team_id != team_id))
-  const [member_team_boards, setMemberTeamBoards] = useState(boards.filter(board => board.team_id == team_id))
-  const router = useRouter();
+  const team_id_list = []
 
-	useEffect(() => {
-    Pusher.logToConsole=process.env.NEXT_PUBLIC_PUSHER_DEBUGGING
-
-		const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
-			cluster: 'eu',
-      encrypted: true
-		})
-
-		const channel = pusher.subscribe(`member-${member_id}`);
-
-		channel.bind('board-created', function(created_board) {
-      publicBoardList.push(created_board)
-    })
-
-		channel.bind('board-deleted', function(deleted_board) {
-        setPublicBoardList(publicBoardList.filter(board => board.code != deleted_board.code));
-	  })
-		
-		channel.bind('board-updated', function(updated_board) {
-      const boardList = boards;
-      const boardIndex = boardList.findIndex(board => board.code === updated_board.code);
-      boardList[boardIndex].name = updated_board.name;
-
-      if(boardList[boardIndex].team_id){
-        setMemberTeamBoards(boardList.filter(board => board.team_id == boardList[boardIndex].team_id))
-      }
-      else{
-        setPublicBoardList(boardList.filter(board => board.team_id === null));
-      }
-    })
-
-		return (() => {
-			pusher.unsubscribe(`member-${member_id}`)
-		})
-	}, []);
-
-  const handleDelete = (board, member_id) => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards/${board.code}` , {
-      method: 'DELETE',
-      headers: {
-          'Content-Type': 'application/json',
-      }
-    })
-  }
-
-  const handleClick = (board_code) => {
-    router.push(`/boards/${board_code}`)
-  }
+  boards.map(board => {
+    if (team_id_list.indexOf(board.team_id) === -1 && board.team_id > 0) {
+      team_id_list.push(board.team_id)
+    }
+  });
 
   return (
     <>

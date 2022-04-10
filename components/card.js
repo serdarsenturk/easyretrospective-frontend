@@ -24,28 +24,21 @@ export default class Cards extends Component{
     render(){
         return (
         <>
-            <div className="item-container">
-                <Card key={this.props.card.id}>
-                    
-                    <Card.Body>
-                        <div className="col">
-                            <Card.Title className="text-uppercase text-muted mb-10">
-                                Card Id: {this.state.card.id}
-                            </Card.Title>
-                            <Card.Text>
-                                <CardContent card={this.state.card} card_content={this.state.card.content} column_id={this.props.column_id} member_id={this.props.member_id} board_code={this.props.board_code}/>
-                            </Card.Text>
-                        </div>
-
-                    <Button variant="danger" onClick={(event) => this.deleteCard(event, this.state.card)}>
-                        <FontAwesomeIcon icon={faTrash} aria-hidden="true"/>
-                    </Button>
-                    
-                    </Card.Body>
-                </Card>
-
-            </div>
-
+        <Card className="my-2 py-2" key={this.props.card.id} style={{background: "white"}}>
+            <Card.Body>
+                <Col className="d-flex">
+                    <Col className="mx-auto">
+                        <CardContent card={this.state.card} card_content={this.state.card.content} column_id={this.props.column_id} member_id={this.props.member_id} board_code={this.props.board_code} />
+                    </Col>
+                    <Row>
+                        <DropdownButton variant="outline-secondary" className="align-text-bottom" title="" aria-haspopup="true" aria-expanded="false">
+                            <Dropdown.Item><FontAwesomeIcon icon={faEdit} aria-hidden="true"/> Edit</Dropdown.Item>
+                            <Dropdown.Item onClick={(event) => this.deleteCard(event, this.state.card)}><FontAwesomeIcon icon={faTrash} aria-hidden="true" /> Delete</Dropdown.Item>
+                        </DropdownButton>
+                    </Row>
+                </Col>
+            </Card.Body>
+        </Card>
         </>
         )
     }

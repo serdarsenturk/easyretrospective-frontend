@@ -84,17 +84,20 @@ class Column extends Component{
 
     render(){
         return (
-        <>
-        <div className='drop-area'>
             <Card>
-
-                <Button className="btn" variant="danger" onClick={(event) => this.deleteColumn(event, this.state.column)}>
-                    <FontAwesomeIcon icon={faTrash} aria-hidden="true"></FontAwesomeIcon>
-                </Button>
-                
-                <Card.Body>
-                    <ColumnName column={this.state.column} column_name={this.state.column.name} member_id={this.props.member_id} board_code={this.props.board_code}/>                
-                
+                <Card.Title>
+                    <Col className="d-flex m-auto">
+                        <Row className="mx-auto">
+                            <ColumnName column={this.state.column} column_name={this.state.column.name} member_id={this.props.member_id} board_code={this.props.board_code} /> 
+                        </Row>
+                        <Row>
+                            <DropdownButton variant="outline-secondary" title="" aria-haspopup="true" aria-expanded="false">
+                                <Dropdown.Item onClick={(event) => this.deleteColumn(event, this.state.column)}><FontAwesomeIcon icon={faTrash} aria-hidden="true" /> Delete</Dropdown.Item>
+                            </DropdownButton>
+                        </Row>
+                    </Col>      
+                </Card.Title>
+                <Card.Body>                
                     {this.state.column.cards.map((card) => (
                         <Cards
                         key={card.id} 
@@ -106,21 +109,20 @@ class Column extends Component{
                     ))}
                 
                     <Form onSubmit={this.handleSubmitCard}>
-                        <Form>
-                            <Form.Control type="text" placeholder="" onChange={(event) => this.handleChangeContent(event)}/>
-                        </Form>
-                        <Form.Group>
-                            <Button className="btn" variant="success" type="submit">
-                                <FontAwesomeIcon icon={faPlus} aria-hidden="true"/>
-                            </Button>
-                        </Form.Group>
+                        <Row>
+                            <Col className="col-8 col-md-9 col-sm-6 mx-0">
+                                <Form.Control type="text" placeholder="" onChange={(event) => this.handleChangeContent(event)}/>
+                            </Col>
+                            <Col>
+                                <Button style={{float:"right"}} variant="success" type="submit">
+                                    <FontAwesomeIcon icon={faPlus} aria-hidden="true" />
+                                </Button>
+                            </Col>
+                        </Row>
                     </Form>
                 </Card.Body>
             </Card>
 
-        </div>
-
-        </>
         )
     }
 }

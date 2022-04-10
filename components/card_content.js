@@ -41,19 +41,16 @@ export default class CardContent extends React.Component{
 
     render() {
         return (
-          <>        
-            <Row className="board-header p-3 pb-md-4 mx-auto text-center">
-              <Form onSubmit={this.handleSubmit}>
-                <input
-                  type="text"
-                  placeholder={this.props.card_content}
-                  value={this.state.content}
-                  onChange={this.handleChange}
-                  className="board-card-text-textbox"
+            <Row>
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Control
+                    type="text"
+                    placeholder={this.props.card_content}
+                    value={this.state.content}
+                    onChange={this.handleChange}
                 />
-              </Form>
+            </Form>
             </Row>
-          </>
         );
       }
 }

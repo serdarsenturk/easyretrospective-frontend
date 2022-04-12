@@ -5,8 +5,16 @@ import { withRouter } from 'next/router'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Card, Button, Container, Dropdown } from "react-bootstrap";
+class BoardContainer extends Component{
+    constructor(props) {
+        super(props);
+    }
+    
       Pusher.logToConsole=process.env.NEXT_PUBLIC_PUSHER_DEBUGGING
       this.pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
           cluster: 'eu',
           encrypted: true
       });
+}
+
+export default withRouter(BoardContainer)

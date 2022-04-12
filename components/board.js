@@ -77,7 +77,6 @@ export default class Board extends React.Component{
 
         this.pusher.unsubscribe(this.channel_column);
         this.pusher.unsubscribe(this.channel_board);
-
     }
 
     render(){

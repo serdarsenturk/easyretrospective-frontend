@@ -14,6 +14,28 @@ class BoardContainer extends Component{
     
     componentDidMount(){
       Pusher.logToConsole=process.env.NEXT_PUBLIC_PUSHER_DEBUGGING
+
+      if (this.state.team_id != null){
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team_id}/boards` , {
+            method: 'GET',
+          })
+          .then((res) => res.json())
+          .then(team => {
+              this.setState({boards: team[0].boards})
+              this.setState({team_name: team[0].name})
+        })
+      }
+      else {
+          this.setState({team_name: 'Private Boards'})
+          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.state.member_id}/boards` , {
+            method: 'GET',
+            })
+            .then((res) => res.json())
+            .then(boards => {
+                this.setState({boards: boards})
+          })
+      }
+        
       this.pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
           cluster: 'eu',
           encrypted: true

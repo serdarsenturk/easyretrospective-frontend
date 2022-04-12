@@ -12,11 +12,37 @@ class BoardContainer extends Component{
         this.router = props.router
     }
     
+    componentDidMount(){
       Pusher.logToConsole=process.env.NEXT_PUBLIC_PUSHER_DEBUGGING
       this.pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
           cluster: 'eu',
           encrypted: true
       });
+
+      this.channel_dashboard = this.pusher.subscribe(`member-${this.state.member_id}`);
+
+      this.channel_dashboard.bind('board-created', function(created_board) {
+          this.state.boards.push(created_board);
+        })
+
+      this.channel_dashboard.bind('board-deleted', function(deleted_board) {
+          this.setState({boards: this.state.boards.filter(board => board.code != deleted_board.code)});
+        })
+
+      this.channel_dashboard.bind('board-updated', function(updated_board) {
+        const boardList = this.state.boards;
+        console.log("serdar")
+        const boardIndex = boardList.findIndex(board => board.code === updated_board.code);
+        boardList[boardIndex].name = updated_board.name;
+
+        if(boardList[boardIndex].team_id){
+          this.setState({boards: boardList.filter(board => board.team_id == boardList[boardIndex].team_id)});
+        }
+        else {
+          this.setState({boards: boardList.filter(board => board.team_id === null)});               
+        }
+      })
+    }
 }
 
 export default withRouter(BoardContainer)

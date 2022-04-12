@@ -1,6 +1,6 @@
 import React from 'react'
 import Column from '../components/column'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Container, Row, Col, Stack, SSRProvider } from 'react-bootstrap'
 import BoardName from '../components/board_name'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";

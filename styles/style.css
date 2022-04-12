@@ -1,0 +1,81 @@
+:root {
+  font-size: 12px;
+}
+
+body {
+  font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+    'Arial', sans-serif;
+  padding: 20px 20px 60px;
+  margin: 0 auto;
+  padding-top: 5px;
+}
+
+.dashboard-card {
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+  transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+  cursor: pointer;
+}
+
+.dashboard-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.dashboard-card h4 {
+  font-weight: 600;
+}
+
+.board-title h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.board-title-textbox {
+  border: 2px solid #e71fd7;
+  display: block;
+  margin: 10px auto;
+  width: 320px;
+  height: 50px;
+  border-radius: 5px;
+  font-size: 12px;
+  padding-left: 25px;
+  background: rgba(255,255,255,0.8);
+  outline: none;
+  color: #000;
+  transition: all .5s ease;
+}
+
+.board-title-textbox:hover {
+  background: rgba(255,255,255,1);
+  border: 3px solid #e71fd7;
+  width: 320px;
+  height: 55px;
+}
+
+.board-title-textbox:focus {
+  background: rgba(255,255,255,1);
+  border: 3px solid #FB6964;
+  width: 320px;
+  height: 55px;
+}
+
+section {
+  padding: 40px 0;
+  overflow: hidden;
+}
+
+.input-form-control {
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #825aa4;
+  box-shadow: none;    
+}
+
+.input-form-control:focus {
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}

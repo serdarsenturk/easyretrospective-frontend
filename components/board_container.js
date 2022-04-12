@@ -1,0 +1,89 @@
+import React, { Component } from "react";
+import CreateBoard from "./create_board";
+import { withRouter } from 'next/router'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Col, Row, Card, Button, Container, Dropdown } from "react-bootstrap";
+
+class BoardContainer extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {team_id: this.props.team_id, team_name: '', boards: [], member_id: this.props.member_id};
+        this.router = props.router
+    }
+    
+    componentDidMount(){
+      if (this.state.team_id != null){
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team_id}/boards` , {
+            method: 'GET',
+          })
+          .then((res) => res.json())
+          .then(team => {
+              this.setState({boards: team[0].boards})
+              this.setState({team_name: team[0].name})
+        })
+      }
+      else {
+          this.setState({team_name: 'Private Boards'})
+          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.state.member_id}/boards` , {
+            method: 'GET',
+            })
+            .then((res) => res.json())
+            .then(boards => {
+                this.setState({boards: boards})
+          })
+      }
+    }
+
+    handleDelete = (board, member_id) => {
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards/${board.code}` , {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+      })
+    }
+    
+    handleClick = (board_code) => {
+      this.router.push(`/boards/${board_code}`)
+    }
+
+    render(){
+      return (
+          <section>
+          <Container>
+              <Row className="display-5 d-flex">{this.state.team_name}</Row>
+                  <CreateBoard member_id={this.state.member_id} team_id={this.state.team_id} />
+              <Row>
+                  {this.state.boards.slice(0, 10).map((board) => (
+                    <Col xs={3} md={4} lg={3} className="col-6 col-xs-3 col-md-4 col-lg-3 my-2 p-2" key={board.code}>
+                      <Card className="dashboard-card p-2" style={{background: "white", boxShadow: "0 0 10px rgba(0,0,0,.1)"}}>
+                        <Card.Body>
+                          <Card.Title>
+                            <h4 onClick={() => this.handleClick(board.code)}>{board.name}</h4>
+                          </Card.Title>
+                          <Card.Text className="my-2" style={{fontFamily:"Roboto" ,fontSize: "12px"}}>
+                            Board Code: {board.code}
+                          </Card.Text>
+                          <Card.Text className="my-4" style={{fontFamily:"Roboto" ,fontSize: "12px"}}>
+                            Board Date: {board.date}
+                          </Card.Text>
+                          <Col>
+                            <Row md="auto">
+                              <Button className="m-2" variant="danger" onClick={() => this.handleDelete(board, this.state.member_id)}>
+                                <FontAwesomeIcon icon={faTrash} aria-hidden="true" />
+                              </Button>
+                            </Row>
+                          </Col>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  ))}
+              </Row>
+          </Container>
+          </section>
+      )
+    }
+}
+
+export default withRouter(BoardContainer)

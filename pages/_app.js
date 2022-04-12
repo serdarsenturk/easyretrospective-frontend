@@ -1,7 +1,18 @@
-import '../styles/globals.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/style.css";
+import Header from "./layouts/header";
+import Footer from "./layouts/footer";
+import { Container } from "react-bootstrap";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+export default function Myapp({ Component, pageProps }) {
+  return (
+    
+    <>    
+    <Container>
+      <Header />
+      <Component {...pageProps} />
+      <Footer />
+    </Container>
+    </>
+  );
 }
-
-export default MyApp

@@ -75,6 +75,10 @@ class BoardContainer extends Component{
       })
     }
     
+    handleClick = (board_code) => {
+      this.router.push(`/boards/${board_code}`)
+    }
+
 }
 
 export default withRouter(BoardContainer)

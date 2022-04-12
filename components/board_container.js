@@ -84,6 +84,43 @@ class BoardContainer extends Component{
 
       this.pusher.unsubscribe(this.channel_dashboard);
     }
+
+    render(){
+      return (
+          <section>
+          <Container>
+              <Row className="display-5 d-flex">{this.state.team_name}</Row>
+                  <CreateBoard member_id={this.state.member_id} team_id={this.state.team_id} />
+              <Row>
+                  {this.state.boards.slice(0, 10).map((board) => (
+                    <Col xs={3} md={4} lg={3} className="col-6 col-xs-3 col-md-4 col-lg-3 my-2 p-2" key={board.code}>
+                      <Card className="dashboard-card p-2" style={{background: "white", boxShadow: "0 0 10px rgba(0,0,0,.1)"}}>
+                        <Card.Body>
+                          <Card.Title>
+                            <h4 onClick={() => this.handleClick(board.code)}>{board.name}</h4>
+                          </Card.Title>
+                          <Card.Text className="my-2" style={{fontFamily:"Roboto" ,fontSize: "12px"}}>
+                            Board Code: {board.code}
+                          </Card.Text>
+                          <Card.Text className="my-4" style={{fontFamily:"Roboto" ,fontSize: "12px"}}>
+                            Board Date: {board.date}
+                          </Card.Text>
+                          <Col>
+                            <Row md="auto">
+                              <Button className="m-2" variant="danger" onClick={() => this.handleDelete(board, this.state.member_id)}>
+                                <FontAwesomeIcon icon={faTrash} aria-hidden="true" />
+                              </Button>
+                            </Row>
+                          </Col>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  ))}
+              </Row>
+          </Container>
+          </section>
+      )
+    }
 }
 
 export default withRouter(BoardContainer)

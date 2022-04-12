@@ -82,26 +82,40 @@ export default class Board extends React.Component{
     render(){
         return (    
         <>
-            <BoardName board={this.state.board}/>
-            
-            <Form className="d-flex p-2 justify-content-center" onSubmit={this.handleSubmit}>
-                    <Form.Control className="w-25" type="text" placeholder="Enter column name" onChange={(event) => this.handleChange(event)}/>
-                        <Button className="btn" type="submit">
-                    <FontAwesomeIcon icon={faPlus} ></FontAwesomeIcon>
-                </Button>
-            </Form>
-
-            <div className="container">
-                {this.state.board.columns.map(column => (
-                    <Column 
-                        key={column.id} 
-                        column={column}
-                        member_id= {this.state.board.member_id}
-                        board_code= {this.state.board.code}
-                    />
-                ))}
-            </div>
-
+        <SSRProvider>
+        <Container  className="d-flex flex-column">
+            <Col className="col-sm-12 mx-auto my-1">
+                <Row>
+                    <Form className="my-2" style={{display:'flex', justifyContent:'right'}} onSubmit={this.handleSubmit}>
+                        <Stack direction="horizontal" gap={2}>
+                        <Form.Control type="text" placeholder="Enter column name" onChange={(event) => this.handleChange(event)} />
+                            <Button type="submit">
+                                <FontAwesomeIcon icon={faPlus} />
+                            </Button>
+                        </Stack>
+                    </Form>
+                </Row>
+                <Row>
+                    <BoardName board={this.state.board} />
+                </Row>
+            </Col>
+            <Row>
+                <Col>
+                    <Container className="d-flex overflow-auto">
+                        {this.state.board.columns.map(column => (
+                            <Stack key={column.id} className="col-7 col-lg-3 col-md-4 col-sm-6 mx-2">
+                                <Column 
+                                    column={column}
+                                    member_id= {this.state.board.member_id}
+                                    board_code= {this.state.board.code} 
+                                />
+                            </Stack>
+                        ))}
+                    </Container>
+                </Col>
+            </Row>
+        </Container>
+        </SSRProvider>
         </>
         );
     }

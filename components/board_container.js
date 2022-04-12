@@ -9,6 +9,7 @@ class BoardContainer extends Component{
     constructor(props) {
         super(props);
         this.state = {team_id: this.props.team_id, team_name: '', boards: [], member_id: this.props.member_id};
+        this.router = props.router
     }
     
       Pusher.logToConsole=process.env.NEXT_PUBLIC_PUSHER_DEBUGGING

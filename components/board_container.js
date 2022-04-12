@@ -1,3 +1,4 @@
+import React, { Component } from "react";
 import Pusher from 'pusher-js'
 import { withRouter } from 'next/router'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

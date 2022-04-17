@@ -7,6 +7,9 @@ function Dashboard({boards, teams, cookies}) {
   const member_id = cookies.member_id
   const [teamBoard, setTeamBoard] = useState([]);
 
+  useEffect(() => {
+    setTeamBoard([]);
+    }, []);
 
   return (
     <>

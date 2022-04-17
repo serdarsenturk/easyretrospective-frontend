@@ -11,27 +11,43 @@ class BoardContainer extends Component{
         this.state = {team_id: this.props.team_id, team_name: '', boards: [], member_id: this.props.member_id};
         this.router = props.router
     }
-    
+
     componentDidMount(){
-      if (this.state.team_id != null){
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team_id}/boards` , {
-            method: 'GET',
-          })
-          .then((res) => res.json())
-          .then(team => {
-              this.setState({boards: team[0].boards})
-              this.setState({team_name: team[0].name})
+      this.pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+        cluster: 'eu',
+        encrypted: true
+      });
+
+      this.channel_dashboard = this.pusher.subscribe(`member-${this.state.member_id}`);
+
+      this.channel_dashboard.bind('board-created', created_board => {
+        var temp_board_list = this.state.boards;
+        temp_board_list.push(created_board);
+        this.setState({boards: temp_board_list});
+      })
+
+      this.channel_dashboard.bind('board-deleted', deleted_board => {
+          this.setState({boards: this.state.boards.filter(board => board.code != deleted_board.code)});
         })
-      }
-      else {
-          this.setState({team_name: 'Private Boards'})
-          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.state.member_id}/boards` , {
-            method: 'GET',
-            })
-            .then((res) => res.json())
-            .then(boards => {
-                this.setState({boards: boards})
-          })
+
+      this.channel_dashboard.bind('board-updated', updated_board => {
+        var temp_board_list = this.state.boards;
+        var board_index = temp_board_list.findIndex(board => board.code === updated_board.code);
+        temp_board_list[board_index] = updated_board;
+
+        this.setState({boards: temp_board_list})
+      })
+    }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.boards !== prevProps.boards) {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team.id}/boards` , {
+          method: 'GET',
+        })
+        .then((res) => res.json())
+        .then(team_board => {
+            this.setState({boards:team_board});
+        })
       }
     }
 

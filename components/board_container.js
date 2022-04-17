@@ -55,9 +55,6 @@ class BoardContainer extends Component{
     handleDelete = (board, member_id) => {
       fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards/${board.code}` , {
         method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        }
       })
     }
     

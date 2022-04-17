@@ -10,11 +10,6 @@ function Dashboard({boards, cookies}) {
   const member_id = cookies.member_id
   const team_id_list = []
 
-  boards.map(board => {
-    if (team_id_list.indexOf(board.team_id) === -1 && board.team_id > 0) {
-      team_id_list.push(board.team_id)
-    }
-  });
 
   return (
     <>

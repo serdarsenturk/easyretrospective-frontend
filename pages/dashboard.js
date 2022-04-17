@@ -4,7 +4,7 @@ import { useState } from 'react';import CreateBoard from '../components/create_b
 import BoardContainer from '../components/board_container';
 
 import { Row, Container, Button } from "react-bootstrap";
-function Dashboard({boards, cookies}) {
+function Dashboard({boards, teams, cookies}) {
   const member_id = cookies.member_id
 
 

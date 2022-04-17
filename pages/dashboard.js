@@ -1,6 +1,7 @@
 import cookies from 'next-cookies';
 import BoardContainer from '../components/board_container';
 import { Row, Container } from "react-bootstrap";
+import { useEffect, useState } from 'react';
 
 function Dashboard({boards, teams, cookies}) {
   const member_id = cookies.member_id

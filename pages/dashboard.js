@@ -4,11 +4,8 @@ import { useState } from 'react';import CreateBoard from '../components/create_b
 import BoardContainer from '../components/board_container';
 
 import { Row, Container, Button } from "react-bootstrap";
-
 function Dashboard({boards, cookies}) {
-  const router = useRouter()
   const member_id = cookies.member_id
-  const team_id_list = []
 
 
   return (

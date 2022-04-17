@@ -72,8 +72,8 @@ class BoardContainer extends Component{
       return (
           <section>
           <Container>
-              <Row className="display-5 d-flex">{this.state.team_name}</Row>
-                  <CreateBoard member_id={this.state.member_id} team_id={this.state.team_id} />
+              <Row className="display-5 d-flex">{this.state.container_name}</Row>
+                  <CreateBoard member_id={this.state.member_id} team_id={this.state.team.id} />
               <Row>
                   {this.state.boards.map((board) => (
                     <Col xs={3} md={4} lg={3} className="col-6 col-xs-3 col-md-4 col-lg-3 my-2 p-2" key={board.code}>

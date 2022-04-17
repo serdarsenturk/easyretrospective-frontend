@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Pusher from 'pusher-js'
 import CreateBoard from "./create_board";
 import { withRouter } from 'next/router'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -11,21 +11,19 @@ function Dashboard({boards, teams, cookies}) {
     setTeamBoard([]);
     }, []);
 
-  return (
-    <>
+    return (
     <Container>
       <Row>
-        <BoardContainer boards={boards} member_id={member_id} />
+        <BoardContainer boards={boards} member_id={member_id} team="" container_name="Private Boards"/>
       </Row>
     
       <Row>
-      {team_id_list.map((num) => 
-        <BoardContainer key={num} member_id={member_id} team_id={num} />
+      {teams.map((team) => 
+        <BoardContainer boards={teamBoard} key={team.id} member_id={member_id} team={team} container_name={team.name}/>
       )}
       </Row>
 
     </Container>
-    </>
     )
 }
 

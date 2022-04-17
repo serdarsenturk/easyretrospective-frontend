@@ -75,7 +75,7 @@ class BoardContainer extends Component{
               <Row className="display-5 d-flex">{this.state.team_name}</Row>
                   <CreateBoard member_id={this.state.member_id} team_id={this.state.team_id} />
               <Row>
-                  {this.state.boards.slice(0, 10).map((board) => (
+                  {this.state.boards.map((board) => (
                     <Col xs={3} md={4} lg={3} className="col-6 col-xs-3 col-md-4 col-lg-3 my-2 p-2" key={board.code}>
                       <Card className="dashboard-card p-2" style={{background: "white", boxShadow: "0 0 10px rgba(0,0,0,.1)"}}>
                         <Card.Body>

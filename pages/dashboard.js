@@ -2,8 +2,8 @@ import { useRouter}  from 'next/router'
 import cookies from 'next-cookies';
 import { useState } from 'react';import CreateBoard from '../components/create_board';
 import BoardContainer from '../components/board_container';
+import { Row, Container } from "react-bootstrap";
 
-import { Row, Container, Button } from "react-bootstrap";
 function Dashboard({boards, teams, cookies}) {
   const member_id = cookies.member_id
 

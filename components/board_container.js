@@ -62,6 +62,12 @@ class BoardContainer extends Component{
       this.router.push(`/boards/${board_code}`)
     }
 
+    componentWillUnmount() {
+      this.channel_dashboard.unbind();
+
+      this.pusher.unsubscribe(this.channel_dashboard);
+    }
+
     render(){
       return (
           <section>

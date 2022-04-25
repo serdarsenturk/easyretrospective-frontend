@@ -11,10 +11,15 @@ export default function BoardDetail({ board }) {
   )
 }
 
-export async function getServerSideProps(context){
-  const { code } = context.query;
+export async function getServerSideProps(ctx){
+  const { code } = ctx.query;
   
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/boards/${code}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/boards/${code}`, {
+    method: 'GET',
+    headers: {
+      'member_id': `${cookies(ctx).member_id}`
+    } 
+  })
 
   const board = await res.json()
   

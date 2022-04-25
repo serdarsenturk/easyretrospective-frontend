@@ -40,18 +40,6 @@ class BoardContainer extends Component{
       })
     }
 
-    componentDidUpdate(prevProps) {
-      if (this.props.boards !== prevProps.boards) {
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team.id}/boards` , {
-          method: 'GET',
-        })
-        .then((res) => res.json())
-        .then(team_board => {
-            this.setState({boards:team_board});
-        })
-      }
-    }
-
     handleDelete = (board, member_id) => {
       fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards/${board.code}` , {
         method: 'DELETE',

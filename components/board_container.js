@@ -74,7 +74,7 @@ class BoardContainer extends Component{
           <section>
           <Container>
               <Row className="display-5 d-flex">{this.state.container_name}</Row>
-                  <CreateBoard member_id={this.state.member_id} team_id={this.state.team.id} />
+                  <CreateBoard member_id={this.state.member_id} team_id={this.state.team ? this.state.team.id : null} />
               <Row>
                   {this.state.boards.map((board) => (
                     <Col xs={3} md={4} lg={3} className="col-6 col-xs-3 col-md-4 col-lg-3 my-2 p-2" key={board.code}>

@@ -31,12 +31,12 @@ class BoardContainer extends Component{
         cluster: 'eu',
         encrypted: true
       });
-
+      
       this.channel_dashboard = this.pusher.subscribe(`member-${this.state.member_id}`);
 
       this.channel_dashboard.bind('board-created', created_board => {
         var temp_board_list = this.state.boards;
-        temp_board_list.push(created_board);
+        temp_board_list.unshift(created_board);
         this.setState({boards: temp_board_list});
       })
 

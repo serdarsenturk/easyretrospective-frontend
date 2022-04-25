@@ -14,6 +14,19 @@ class BoardContainer extends Component{
     }
 
     componentDidMount(){
+      if (this.state.team) {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team.id}/boards` , {
+          method: 'GET',
+          headers: {
+            'member_id': `${this.state.member_id}`,
+          }
+        })
+        .then((res) => res.json())
+        .then(team_board => {
+            this.setState({boards:team_board});
+        })
+      }
+
       this.pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
         cluster: 'eu',
         encrypted: true

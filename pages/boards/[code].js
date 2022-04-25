@@ -1,5 +1,6 @@
 import { Container } from 'react-bootstrap';
 import Board from '../../components/board';
+import cookies from 'next-cookies';
 
 export default function BoardDetail({ board }) {
 

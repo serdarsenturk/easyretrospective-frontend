@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Pusher from 'pusher-js'
 import CreateBoard from "./create_board";
 import { withRouter } from 'next/router'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,39 +9,53 @@ import { Col, Row, Card, Button, Container, Dropdown } from "react-bootstrap";
 class BoardContainer extends Component{
     constructor(props) {
         super(props);
-        this.state = {team_id: this.props.team_id, team_name: '', boards: [], member_id: this.props.member_id};
+        this.state = {team: this.props.team, boards: this.props.boards, container_name: this.props.container_name, member_id: this.props.member_id};
         this.router = props.router
     }
-    
+
     componentDidMount(){
-      if (this.state.team_id != null){
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team_id}/boards` , {
-            method: 'GET',
-          })
-          .then((res) => res.json())
-          .then(team => {
-              this.setState({boards: team[0].boards})
-              this.setState({team_name: team[0].name})
+      if (this.state.team) {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team.id}/boards` , {
+          method: 'GET',
+          headers: {
+            'member_id': `${this.state.member_id}`,
+          }
+        })
+        .then((res) => res.json())
+        .then(team_board => {
+            this.setState({boards:team_board});
         })
       }
-      else {
-          this.setState({team_name: 'Private Boards'})
-          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.state.member_id}/boards` , {
-            method: 'GET',
-            })
-            .then((res) => res.json())
-            .then(boards => {
-                this.setState({boards: boards})
-          })
-      }
+
+      this.pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+        cluster: 'eu',
+        encrypted: true
+      });
+      
+      this.channel_dashboard = this.pusher.subscribe(`member-${this.state.member_id}`);
+
+      this.channel_dashboard.bind('board-created', created_board => {
+        var temp_board_list = this.state.boards;
+        temp_board_list.unshift(created_board);
+        this.setState({boards: temp_board_list});
+      })
+
+      this.channel_dashboard.bind('board-deleted', deleted_board => {
+          this.setState({boards: this.state.boards.filter(board => board.code != deleted_board.code)});
+        })
+
+      this.channel_dashboard.bind('board-updated', updated_board => {
+        var temp_board_list = this.state.boards;
+        var board_index = temp_board_list.findIndex(board => board.code === updated_board.code);
+        temp_board_list[board_index] = updated_board;
+
+        this.setState({boards: temp_board_list})
+      })
     }
 
     handleDelete = (board, member_id) => {
       fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards/${board.code}` , {
         method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        }
       })
     }
     
@@ -48,14 +63,20 @@ class BoardContainer extends Component{
       this.router.push(`/boards/${board_code}`)
     }
 
+    componentWillUnmount() {
+      this.channel_dashboard.unbind();
+
+      this.pusher.unsubscribe(this.channel_dashboard);
+    }
+
     render(){
       return (
           <section>
           <Container>
-              <Row className="display-5 d-flex">{this.state.team_name}</Row>
-                  <CreateBoard member_id={this.state.member_id} team_id={this.state.team_id} />
+              <Row className="display-5 d-flex">{this.state.container_name}</Row>
+                  <CreateBoard member_id={this.state.member_id} team_id={this.state.team ? this.state.team.id : null} />
               <Row>
-                  {this.state.boards.slice(0, 10).map((board) => (
+                  {this.state.boards.map((board) => (
                     <Col xs={3} md={4} lg={3} className="col-6 col-xs-3 col-md-4 col-lg-3 my-2 p-2" key={board.code}>
                       <Card className="dashboard-card p-2" style={{background: "white", boxShadow: "0 0 10px rgba(0,0,0,.1)"}}>
                         <Card.Body>

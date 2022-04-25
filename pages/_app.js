@@ -6,7 +6,6 @@ import { Container } from "react-bootstrap";
 
 export default function Myapp({ Component, pageProps }) {
   return (
-    
     <>    
     <Container>
       <Header />

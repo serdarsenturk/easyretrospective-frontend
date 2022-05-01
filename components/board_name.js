@@ -1,5 +1,5 @@
 import React from 'react'
-import {Row, Form, Col, FormControl} from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 export default class BoardName extends React.Component{
     constructor(props) {

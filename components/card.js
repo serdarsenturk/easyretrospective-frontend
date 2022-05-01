@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, Button , Col, Row, DropdownButton, Dropdown} from "react-bootstrap";
 import CardContent from "../components/card_content"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default class Cards extends Component{
     constructor(props) {
@@ -32,7 +32,6 @@ export default class Cards extends Component{
                     </Col>
                     <Row>
                         <DropdownButton variant="outline-secondary" className="align-text-bottom" title="" aria-haspopup="true" aria-expanded="false">
-                            <Dropdown.Item><FontAwesomeIcon icon={faEdit} aria-hidden="true"/> Edit</Dropdown.Item>
                             <Dropdown.Item onClick={(event) => this.deleteCard(event, this.state.card)}><FontAwesomeIcon icon={faTrash} aria-hidden="true" /> Delete</Dropdown.Item>
                         </DropdownButton>
                     </Row>

@@ -33,26 +33,26 @@ export default class BoardName extends React.Component{
         })
         }
     
-        handleChange(event) {
-            event.preventDefault();
-            
-            this.setState({ board_name: event.target.value});
-        }
+    handleChange(event) {
+      event.preventDefault();
+      
+      this.setState({ board_name: event.target.value});
+    }
     
-        render() {
-            return (
-              <>
-                <title>{this.state.board_name}</title>
-                  <Form onSubmit={this.handleSubmit}>
-                    <input
-                      type="text"
-                      placeholder="Update board name"
-                      value={this.state.board_name}
-                      onChange={this.handleChange}
-                      className="board-title-textbox"
-                    />
-                  </Form>
-              </>
-            );
-          }
+    render() {
+      return (
+        <>
+          <title>{this.state.board_name}</title>
+            <Form onSubmit={this.handleSubmit}>
+              <input
+                type="text"
+                placeholder="Update board name"
+                value={this.state.board_name}
+                onChange={this.handleChange}
+                className="board-title-textbox"
+              />
+            </Form>
+        </>
+      );
+    }
 }

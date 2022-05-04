@@ -15,6 +15,7 @@
 # production
 /build
 .env
+easyretrospective-frontend.code-workspace
 
 # misc
 .DS_Store

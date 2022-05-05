@@ -22,13 +22,13 @@ function Dashboard({boards, teams, cookies}) {
 }
 
 export async function getServerSideProps(ctx) {
-  const response_boards = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${cookies(ctx).member_id}/boards`, {
+  const response_boards = await fetch(`${process.env.BACKEND_URL}/api/v1/members/${cookies(ctx).member_id}/boards`, {
     method: 'GET',
     headers: { cookie: ctx.req.headers.cookie },
   })
   const boards = await response_boards.json()
 
-  const response_teams = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${cookies(ctx).member_id}/teams`, {
+  const response_teams = await fetch(`${process.env.BACKEND_URL}/api/v1/members/${cookies(ctx).member_id}/teams`, {
     method: 'GET',
     headers: { 
       Cookie: ctx.req.headers.cookie,

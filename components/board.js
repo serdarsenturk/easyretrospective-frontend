@@ -56,6 +56,7 @@ export default class Board extends React.Component{
 
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.board.member_id}/boards/${this.props.board.code}/columns` , {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },

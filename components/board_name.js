@@ -21,19 +21,19 @@ export default class BoardName extends React.Component{
     }
 
     handleSubmit(event) {
-        event.preventDefault();
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.board.member_id}/boards/${this.props.board.code}/name`, {
-            method: 'PUT',
-            credentials: 'include',
-            mode: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "name": this.state.board_name
-            })
-        })
-        }
+      event.preventDefault();
+
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.board.member_id}/boards/${this.props.board.code}/name`, {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              "name": this.state.board_name
+          })
+      })
+    }
     
     handleChange(event) {
       event.preventDefault();

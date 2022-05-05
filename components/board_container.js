@@ -17,6 +17,7 @@ class BoardContainer extends Component{
       if (this.state.team) {
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team.id}/boards` , {
           method: 'GET',
+          credentials: 'include',
           headers: {
             'member_id': `${this.state.member_id}`,
           }
@@ -56,6 +57,7 @@ class BoardContainer extends Component{
     handleDelete = (board, member_id) => {
       fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards/${board.code}` , {
         method: 'DELETE',
+        credentials: 'include',
       })
     }
     

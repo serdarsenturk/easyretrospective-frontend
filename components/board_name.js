@@ -21,38 +21,40 @@ export default class BoardName extends React.Component{
     }
 
     handleSubmit(event) {
-        event.preventDefault();
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.board.member_id}/boards/${this.props.board.code}/name`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "name": this.state.board_name
-            })
-        })
-        }
+      event.preventDefault();
+
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.board.member_id}/boards/${this.props.board.code}/name`, {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              "name": this.state.board_name
+          })
+      })
+    }
     
-        handleChange(event) {
-            event.preventDefault();
-            
-            this.setState({ board_name: event.target.value});
-        }
+    handleChange(event) {
+      event.preventDefault();
+      
+      this.setState({ board_name: event.target.value});
+    }
     
-        render() {
-            return (
-              <>
-                <title>{this.state.board_name}</title>
-                  <Form onSubmit={this.handleSubmit}>
-                    <input
-                      type="text"
-                      placeholder="Update board name"
-                      value={this.state.board_name}
-                      onChange={this.handleChange}
-                      className="board-title-textbox"
-                    />
-                  </Form>
-              </>
-            );
-          }
+    render() {
+      return (
+        <>
+          <title>{this.state.board_name}</title>
+            <Form onSubmit={this.handleSubmit}>
+              <input
+                type="text"
+                placeholder="Update board name"
+                value={this.state.board_name}
+                onChange={this.handleChange}
+                className="board-title-textbox"
+              />
+            </Form>
+        </>
+      );
+    }
 }

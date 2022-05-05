@@ -50,6 +50,7 @@ class Column extends Component{
 
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${this.state.column.id}/cards` , {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -70,6 +71,7 @@ class Column extends Component{
 
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${column.id}` , {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             }

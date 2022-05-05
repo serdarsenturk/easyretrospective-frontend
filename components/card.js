@@ -15,10 +15,11 @@ export default class Cards extends Component{
 
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${this.props.column_id}/cards/${card.id}` , {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             }
-          })
+        })
     }
 
     render(){

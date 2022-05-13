@@ -1,6 +1,13 @@
 import cookies from 'next-cookies';
 import BoardContainer from '../components/board_container';
 import { Row, Container } from "react-bootstrap";
+import {
+  useAuthUser,
+  withAuthUser,
+  withAuthUserSSR,
+  AuthAction,
+  withAuthUserTokenSSR,
+} from 'next-firebase-auth';
 
 function Dashboard({boards, teams, cookies}) {
   const member_id = cookies.member_id
@@ -39,4 +46,6 @@ export async function getServerSideProps(ctx) {
   return { props: {boards: boards, teams: teams, cookies: cookies(ctx)}}
 }
 
-export default Dashboard
+export default withAuthUser({
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+})(Dashboard)

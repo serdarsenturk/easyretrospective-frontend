@@ -59,8 +59,8 @@ const initAuth = () => {
       }
       return destURL
     },
-    loginAPIEndpoint: 'http://localhost:5000/api/v1/login',
-    logoutAPIEndpoint: 'http://localhost:5000/api/v1/logout',
+    loginAPIEndpoint: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/member/login`,
+    logoutAPIEndpoint: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/member/logout`,
     firebaseAdminInitConfig: {
       credential: {
         projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,

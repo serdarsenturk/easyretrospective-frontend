@@ -3,13 +3,8 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
-// Note that next-firebase-auth inits Firebase for us,
-// so we don't need to.
-
 const firebaseAuthConfig = {
   signInFlow: 'popup',
-  // Auth providers
-  // https://github.com/firebase/firebaseui-web#configure-oauth-providers
   signInOptions: [
     {
       provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
@@ -18,19 +13,34 @@ const firebaseAuthConfig = {
   ],
   signInSuccessUrl: '/',
   credentialHelper: 'none',
-  callbacks: {
-    // https://github.com/firebase/firebaseui-web#signinsuccesswithauthresultauthresult-redirecturl
-    signInSuccessWithAuthResult: () =>
-      // Don't automatically redirect. We handle redirects using
-      // `next-firebase-auth`.
-      false,
-  },
+  callbacks: {    
+    signInSuccessWithAuthResult: function(authResult) {
+      var user = authResult.user;
+      var isNewUser = authResult.additionalUserInfo.isNewUser;
+
+      if (isNewUser) {
+        user.getIdToken().then(function(accessToken) {
+          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/member/create`, {
+            method: 'POST',
+            headers: {
+              Authorization: `${accessToken}`,
+            },
+          })
+        });
+      }
+      return false;
+    },
+    signInFailure: function(error) {
+      return handleUIError(error);
+    },
+  }
 }
 
-const FirebaseAuth = () => {
+function FirebaseAuth() {
   // Do not SSR FirebaseUI, because it is not supported.
   // https://github.com/firebase/firebaseui-web/issues/213
   const [renderAuth, setRenderAuth] = useState(false)
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setRenderAuth(true)

@@ -9,9 +9,7 @@ import {
   withAuthUserTokenSSR,
 } from 'next-firebase-auth';
 
-function Dashboard({boards, teams, cookies}) {
-  const member_id = cookies.member_id
-  
+function Dashboard({boards, teams, member_id}) {
     return (
     <Container>
       <Row>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import Pusher from 'pusher-js';
 import Cards from '../components/card';
 import ColumnName from '../components/column_name';

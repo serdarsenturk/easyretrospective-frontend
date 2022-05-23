@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { Button } from "react-bootstrap";
 import { withRouter } from 'next/router';
 

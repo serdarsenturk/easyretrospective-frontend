@@ -1,11 +1,10 @@
-import { init } from 'next-firebase-auth'
-import absoluteUrl from 'next-absolute-url'
+import { init } from 'next-firebase-auth';
 
 const TWELVE_DAYS_IN_MS = 12 * 60 * 60 * 24 * 1000
 
 const initAuth = () => {
   init({
-    debug: true,
+    debug: false,
 
     // This demonstrates setting a dynamic destination URL when
     // redirecting from app pages. Alternatively, you can simply
@@ -20,7 +19,7 @@ const initAuth = () => {
     //   const destURL = new URL(destPath, origin)
     //   return `auth-ssr?destination=${encodeURIComponent(destURL)}`
     // },
-    authPageURL: `/auth`,
+    authPageURL: `/login`,
 
     // This demonstrates setting a dynamic destination URL when
     // redirecting from auth pages. Alternatively, you can simply
@@ -59,8 +58,9 @@ const initAuth = () => {
       }
       return destURL
     },
-    loginAPIEndpoint: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/member/login`,
-    logoutAPIEndpoint: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/member/logout`,
+    loginAPIEndpoint: `/api/login`,
+    logoutAPIEndpoint: `/api/logout`,
+    // logoutAPIEndpoint: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/member/logout`,
     firebaseAdminInitConfig: {
       credential: {
         projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -92,7 +92,7 @@ const initAuth = () => {
       path: '/',
       sameSite: 'lax',
       secure: process.env.NEXT_PUBLIC_COOKIE_SECURE === 'true',
-      signed: true,
+      signed: false,
     },
   })
 }

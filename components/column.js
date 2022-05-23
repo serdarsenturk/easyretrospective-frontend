@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Card, Button, Form, Col, Row, Stack, Dropdown, DropdownButton } from "react-bootstrap";
-import Cards from '../components/card'
-import ColumnName from '../components/column_name'
+import firebase from 'firebase/app';
+import Pusher from 'pusher-js';
+import Cards from '../components/card';
+import ColumnName from '../components/column_name';
+import { Card, Button, Form, Col, Row, Dropdown, DropdownButton } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
-import Pusher from 'pusher-js'
 
 class Column extends Component{
     constructor(props) {
@@ -47,17 +48,19 @@ class Column extends Component{
 
     handleSubmitCard = (event) => {
         event.preventDefault()
-
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${this.state.column.id}/cards` , {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "content": this.state.content
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${this.state.column.id}/cards` , {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${idToken}`
+                },
+                body: JSON.stringify({
+                    "content": this.state.content
+                })
             })
-          })
+        })
     }
 
     handleChangeContent(event) {
@@ -68,14 +71,18 @@ class Column extends Component{
 
     deleteColumn = (event, column) => {
         event.preventDefault();
-
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${column.id}` , {
-            method: 'DELETE',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-          })      
+        console.log(this.props.member_id)
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${column.id}` , {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${idToken}`
+                }
+            })      
+        })
+        console.log(this.props.member_id)
     }
 
     componentWillUnmount() {

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import React, { useEffect, useState } from 'react';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 const firebaseAuthConfig = {
   signInFlow: 'popup',
@@ -11,7 +11,6 @@ const firebaseAuthConfig = {
       requireDisplayName: false,
     },
   ],
-  signInSuccessUrl: '/',
   credentialHelper: 'none',
   callbacks: {    
     signInSuccessWithAuthResult: function(authResult) {
@@ -40,7 +39,7 @@ function FirebaseAuth() {
   // Do not SSR FirebaseUI, because it is not supported.
   // https://github.com/firebase/firebaseui-web/issues/213
   const [renderAuth, setRenderAuth] = useState(false)
-
+  
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setRenderAuth(true)

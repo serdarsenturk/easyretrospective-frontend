@@ -3,7 +3,7 @@ import { withAuthUser, AuthAction } from 'next-firebase-auth'
 import FirebaseAuth from '../components/firebase_auth'
 import { Container } from "react-bootstrap";
 
-function Auth() {
+function Login() {
   return(
     <Container>
         <FirebaseAuth />
@@ -15,4 +15,4 @@ export default withAuthUser({
   whenAuthed: AuthAction.REDIRECT_TO_APP,
   whenUnauthedBeforeInit: AuthAction.RETURN_NULL,
   whenUnauthedAfterInit: AuthAction.RENDER,
-})(Auth)
+})(Login)

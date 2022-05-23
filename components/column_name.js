@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import firebase from 'firebase/app';
 import { Form } from "react-bootstrap";
 
 export default class ColumnName extends React.Component{
@@ -21,15 +22,17 @@ export default class ColumnName extends React.Component{
 
     handleSubmit(event) {
         event.preventDefault();
-
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${this.props.column.id}/name`, {
-            method: 'PUT',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "name": this.state.column_name
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_firebase_id}/boards/${this.props.board_code}/columns/${this.props.column.id}/name`, {
+                method: 'PUT',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${idToken}`
+                },
+                body: JSON.stringify({
+                    "name": this.state.column_name
+                })
             })
         })
     }

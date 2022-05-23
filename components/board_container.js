@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Pusher from 'pusher-js';
-import firebase from 'firebase/compat/app';
+import firebase from 'firebase/app';
 import CreateBoard from "./create_board";
 import { withRouter } from 'next/router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

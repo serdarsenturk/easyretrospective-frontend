@@ -5,7 +5,7 @@ import CreateBoard from "./create_board";
 import { withRouter } from 'next/router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Col, Row, Card, Button, Container, Dropdown } from "react-bootstrap";
+import { Col, Row, Card, Button, Container } from "react-bootstrap";
 
 class BoardContainer extends Component{
     constructor(props) {

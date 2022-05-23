@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import firebase from 'firebase/app';
-import { Card , Col, Row, DropdownButton, Dropdown} from "react-bootstrap";
+import { Card , Col, Row, DropdownButton, Dropdown } from "react-bootstrap";
 import CardContent from "../components/card_content";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";

@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
+import firebase from 'firebase/app';
 import { Button } from "react-bootstrap";
-import { withRouter } from 'next/router'
+import { withRouter } from 'next/router';
 
 class CreateBoard extends React.Component{
     constructor(props) {
@@ -11,28 +12,34 @@ class CreateBoard extends React.Component{
 
     handleClick = (member_id, team_id) => {
         if (team_id){
-            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards` , {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({team_id: team_id})
-              })
-              .then((response) => response.json())
-              .then(new_board => this.router.push(`/boards/${new_board.code}`))
+            firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards` , {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${idToken}`
+                    },
+                    body: JSON.stringify({team_id: team_id})
+                  })
+                  .then((response) => response.json())
+                  .then(new_board => this.router.push(`/boards/${new_board.code}`))
+            })
         }
         else {
-            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards` , {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({team_id: null})
-              })
-              .then((response) => response.json())
-              .then(new_board => this.router.push(`/boards/${new_board.code}`))
+            firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards` , {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${idToken}`
+                    },
+                    body: JSON.stringify({team_id: null})
+                  })
+                  .then((response) => response.json())
+                  .then(new_board => this.router.push(`/boards/${new_board.code}`))
+            })
         }
     }
 

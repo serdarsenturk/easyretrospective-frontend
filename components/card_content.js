@@ -1,5 +1,6 @@
-import React from 'react'
-import { Row, Form } from 'react-bootstrap'
+import React from 'react';
+import firebase from 'firebase/app';
+import { Row, Form } from 'react-bootstrap';
 
 export default class CardContent extends React.Component{
     constructor(props) {
@@ -22,15 +23,17 @@ export default class CardContent extends React.Component{
 
     handleSubmit(event) {
         event.preventDefault();
-
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${this.props.column_id}/cards/${this.props.card.id}/content`, {
-            method: 'PUT',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "content": this.state.content
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${this.props.column_id}/cards/${this.props.card.id}/content`, {
+                method: 'PUT',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${idToken}`
+                },
+                body: JSON.stringify({
+                    "content": this.state.content
+                })
             })
         })
     }

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Pusher from 'pusher-js'
+import firebase from 'firebase/app'
 import CreateBoard from "./create_board";
-import { withRouter } from 'next/router'
+import { withRouter } from 'next/router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Card, Button, Container, Dropdown } from "react-bootstrap";
@@ -15,16 +16,18 @@ class BoardContainer extends Component{
 
     componentDidMount(){
       if (this.state.team) {
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team.id}/boards` , {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'member_id': `${this.state.member_id}`,
-          }
-        })
-        .then((res) => res.json())
-        .then(team_board => {
-            this.setState({boards:team_board});
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team.id}/boards` , {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+              'Authorization': `${idToken}`,
+            }
+          })
+          .then((res) => res.json())
+          .then(team_board => {
+              this.setState({boards:team_board});
+          })
         })
       }
 
@@ -55,9 +58,14 @@ class BoardContainer extends Component{
     }
 
     handleDelete = (board, member_id) => {
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards/${board.code}` , {
-        method: 'DELETE',
-        credentials: 'include',
+      firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${member_id}/boards/${board.code}` , {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+            'Authorization': `${idToken}`,
+          }
+        })
       })
     }
     

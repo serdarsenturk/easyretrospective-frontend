@@ -26,3 +26,30 @@ Next.js can be deployed to any hosting provider that supports Docker containers.
 
 ## Deploy on Vercel
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+### `.env.local` file example
+
+```
+NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
+BACKEND_URL=http://127.0.0.1:5000
+
+NEXT_PUBLIC_PUSHER_APP_KEY=aaaadddddbbbbbb
+NEXT_PUBLIC_PUSHER_DEBUGGING=True
+
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=easyretrospective-xxx
+NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY=xxxxxxxx-xxxxxxx-xxxxxxx
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-do7gr@easyretrospective-xxxxx.iam.gserviceaccount.com
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=easyretrospective-xxxx.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_DATABASE_URL=https://easyretrospective-xxxx-default-rtdb.xxxx-xxxxxx.firebasedatabase.app
+
+FIREBASE_PRIVATE_KEY='private_key'
+
+# Secrets used to sign cookies.
+COOKIE_SECRET_CURRENT=someSecretValue
+COOKIE_SECRET_PREVIOUS=anotherSecretValue
+
+# Cookie options.
+NEXT_PUBLIC_COOKIE_SECURE=false # set to true in HTTPS environment
+
+```

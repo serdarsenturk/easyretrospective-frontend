@@ -28,11 +28,11 @@ Next.js can be deployed to any hosting provider that supports Docker containers.
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-### `.env.local` file example
+### `.env.local` file example for local development
 
 ```
-NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
-BACKEND_URL=http://127.0.0.1:5000
+NEXT_PUBLIC_BACKEND_URL=http://localhost:5000 
+BACKEND_URL=http://127.0.0.1:5000 // It's need to be change on docker deployment to `api`
 
 NEXT_PUBLIC_PUSHER_APP_KEY=aaaadddddbbbbbb
 NEXT_PUBLIC_PUSHER_DEBUGGING=True

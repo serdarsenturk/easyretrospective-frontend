@@ -3,9 +3,10 @@ import firebase from 'firebase/app';
 import Pusher from 'pusher-js';
 import Column from '../components/column';
 import BoardName from '../components/board_name';
-import { Form, Button, Container, Row, Col, Stack, SSRProvider } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Stack, SSRProvider, InputGroup, FormControl } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FaPlus } from "react-icons/fa";
 
 export default class Board extends React.Component{
     constructor(props) {
@@ -89,15 +90,19 @@ export default class Board extends React.Component{
         <SSRProvider>
         <Container fluid>
         <Col className="col-sm-12 mx-auto my-1">
-            <Row>
-                <Form className="my-2" style={{display:'flex', justifyContent:'right'}} onSubmit={this.handleSubmit}>
-                    <Stack direction="horizontal" gap={2}>
-                    <Form.Control type="text" placeholder="Enter column name" onChange={(event) => this.handleChange(event)} />
-                        <Button type="submit">
-                            <FontAwesomeIcon icon={faPlus} />
-                        </Button>
-                    </Stack>
-                </Form>
+            <Row className="team-input-form">
+                <InputGroup className="my-2 p-2 mb-5">
+                <FormControl
+                    placeholder="Enter column name"
+                    aria-label="Column name"
+                    aria-describedby="basic-addon1"
+                    onChange={(event) => this.handleChange(event)}
+                    isValid={true}
+                />
+                <Button variant="success" onClick={this.handleSubmit}>
+                    <FaPlus style={{ marginTop: "-2px"}} />
+                </Button>
+                </InputGroup>
             </Row>
             <Row>
                 <BoardName board={this.state.board} />

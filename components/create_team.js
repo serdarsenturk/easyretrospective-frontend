@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase/app';
-import { Container, FormControl, Button } from "react-bootstrap";
+import { Container, FormControl, InputGroup, Button } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 
 export default class CreateTeam extends React.Component{
@@ -13,7 +13,6 @@ export default class CreateTeam extends React.Component{
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(firebase.auth().currentUser)
         firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/create`, {
                 method: 'POST',

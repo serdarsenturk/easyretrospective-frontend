@@ -5,10 +5,15 @@ import {
   withAuthUserTokenSSR,
   AuthAction,
 } from 'next-firebase-auth';
+import CreateTeam from '../components/create_team';
 
 const Dashboard = ({boards, teams, member_id}) => {
   return (
     <Container>
+      <Row className="team-input-form">
+        <CreateTeam/>
+      </Row>
+
       <Row>
         <BoardContainer boards={boards} member_id={member_id} container_name="Private Boards"/>
       </Row>

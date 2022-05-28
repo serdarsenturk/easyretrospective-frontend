@@ -19,7 +19,7 @@ const firebaseAuthConfig = {
 
       if (isNewUser) {
         user.getIdToken().then(function(accessToken) {
-          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/member/create`, {
+          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/create`, {
             method: 'POST',
             headers: {
               Authorization: `${accessToken}`,

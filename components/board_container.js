@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Pusher from 'pusher-js';
 import firebase from 'firebase/app';
+import 'firebase/auth';
 import CreateBoard from "./create_board";
 import { withRouter } from 'next/router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,26 +11,50 @@ import { Col, Row, Card, Button, Container } from "react-bootstrap";
 class BoardContainer extends Component{
     constructor(props) {
         super(props);
-        this.state = {team: this.props.team, boards: this.props.boards, container_name: this.props.container_name, member_id: this.props.member_id};
+        this.state = {team: this.props.team, boards: this.props.boards, container_name: this.props.container_name, member_id: this.props.member_id, authenticated: undefined };
         this.router = props.router
     }
 
     componentDidMount(){
-      if (this.state.team) {
-        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
-          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team.id}/boards` , {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-              'Authorization': `${idToken}`,
+      firebase.auth().onAuthStateChanged((authenticated) => {
+        if (authenticated) {
+          let idTokenfinal;
+          firebase
+            .auth()
+            .currentUser.getIdToken()
+            .then((idToken) => {
+              idTokenfinal = idToken;
+              if (this.state.team) {
+                fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teams/${this.state.team.id}/boards` , {
+                  method: 'GET',
+                  credentials: 'include',
+                  headers: {
+                    'Authorization': `${idTokenfinal}`,
+                  }
+                })
+                .then((res) => res.json())
+                .then(team_board => {
+                    this.setState({boards:team_board});
+                })
+              }
+              this.setState({
+                authenticated: true,
+              });
+            })
+            .catch((e) => {
+              alert(e);
+            });
+
+          firebase.auth().onIdTokenChanged(function (user) {
+            if (user) {
+              // User is signed in or token was refreshed.
+              user.getIdToken().then((idToken) => {
+                idTokenfinal = idToken;  
+              });
             }
-          })
-          .then((res) => res.json())
-          .then(team_board => {
-              this.setState({boards:team_board});
-          })
-        })
-      }
+          });
+        } 
+      });
 
       this.pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
         cluster: 'eu',

@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase/app';
 import { Form } from "react-bootstrap";
 
-export default class ColumnName extends React.Component{
+export default class TeamName extends React.Component{
     constructor(props) {
         super(props);
         this.state = {column_name: ''};
@@ -23,7 +23,7 @@ export default class ColumnName extends React.Component{
     handleSubmit(event) {
         event.preventDefault();
         firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
-            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_id}/boards/${this.props.board_code}/columns/${this.props.column.id}/name`, {
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/members/${this.props.member_firebase_id}/boards/${this.props.board_code}/columns/${this.props.column.id}/name`, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
@@ -39,7 +39,7 @@ export default class ColumnName extends React.Component{
     
     handleChange(event) {
         event.preventDefault();
-        this.setState({column_name: event.target.value});
+        this.setState({ column_name: event.target.value});
     }
     
     render() {
